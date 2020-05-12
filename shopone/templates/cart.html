@@ -1,0 +1,105 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">หน้าแรก</a></li>
+                <li class="active">ตะกร้าสินค้า</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<!-- Begin Umino's Cart Area -->
+<div class="umino-cart-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="umino-product-remove">ลบ</th>
+                                    <th class="umino-product-thumbnail">ภาพสินค้า</th>
+                                    <th class="cart-product-name">สินค้า</th>
+                                    <th class="umino-product-price">ราคา/หน่วย</th>
+                                    <th class="umino-product-quantity">จำนวน</th>
+                                    <th class="umino-product-subtotal">รวมเงิน</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr>
+                                    {% if item.statusBuy == 'ขาย' %}
+                                    <td class="umino-product-remove"><a href="{% url 'removeCart' item.product.id %}"><i class="fas fa-trash"></i></a></td>
+                                    {% else %}
+                                    <td class="umino-product-remove"></td>
+                                    {% endif %}
+                                    <td class="umino-product-thumbnail"><a href="{{item.product.get_url}}"><img src="{{item.product.image.url}}" width="80px" height="80px" alt="Umino's Cart Thumbnail"></a></td>
+                                    <td class="umino-product-name"><a href="{{item.product.get_url}}">{{item.product.name}}</a></td>
+                                    {% if item.statusBuy == 'ขาย' %}
+                                        {% if request.user.is_authenticated %}
+                                        <td class="umino-product-price"><span class="amount">{{item.product.netprice_mem|intcomma}}</span></td>
+                                        {% else %}
+                                        <td class="umino-product-price"><span class="amount">{{item.product.netprice_guest|intcomma}}</span></td>
+                                        {% endif %}
+                                    {% else %}
+                                    <td class="umino-product-price"><span class="amount">*{{item.product.stat_promotion}}</span></td>
+                                    {% endif %}
+                                    <td class="quantity"><span class="amount">{{item.quantity}}</span></td>
+                                    {% if item.statusBuy == 'ขาย' %}
+                                    {% if request.user.is_authenticated %}
+                                    <td class="product-subtotal"><span class="amount">{{item.sub_total|intcomma}}</span></td>
+                                    {% else %}
+                                    <td class="product-subtotal"><span class="amount">{{item.sub_total_guest|intcomma}}</span></td>
+                                    {% endif %}
+                                    {% else %}
+                                    <td class="product-subtotal"><span class="amount">0</span></td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="coupon-all">
+                                <div class="coupon">
+                                    <!--<input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">-->
+                                    <!--<input class="button" name="apply_coupon" value="Apply coupon" type="submit">-->
+                                </div>
+                                <div class="coupon2">
+                                    
+                                    <!-- <a class="btn btn-primary" href="{% url 'UpdateCart' %}">upd To Cart</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 ml-auto">
+                            <div class="cart-page-total">
+                                <h2>รวมยอดเงินทั้งสิ้น</h2>
+                                <ul>
+                                    <li>มูลค่าสินค้า <span>{{total|intcomma}}</span></li>
+                                    <li>ส่วนลด <span>{{discount|intcomma}}</span></li>
+                                    <li>ค่าจัดส่ง <span>{{shipping|intcomma}}</span></li>
+                                    <li>รวมทั้งหมด <span>{{totalall|intcomma}}</span></li>
+                                </ul>
+                                <a href="{% url 'checkout' %}">Proceed to checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Umino's Cart Area End Here -->
+
+{% endblock %}

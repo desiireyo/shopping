@@ -1,0 +1,105 @@
+{% extends 'backend/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">กำหนดช่วงราคาขนส่ง</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">กำหนดช่วงราคาขนส่ง</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+        <h3 class="card-title">เพิ่มข้อมูล - กำหนดช่วงราคาขนส่ง</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <!-- /.card-header -->
+        <form role="form" action="{% url 'addNewshipping' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="id_price1">ช่วงราคา</label>
+                                <input type="text" class="form-control" id="id_price1" name="price1" placeholder="">
+                            </div>
+                            
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="id_price2">&nbsp;</label>
+                                <input type="text" class="form-control" id="id_price2" name="price2" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-4">                            
+                            <div class="form-group">
+                                <label for="id_price">ราคาจัดส่ง</label>
+                                <input type="text" class="form-control" id="id_price" name="price" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>สถานะ</label>
+                            <div class="radio icheck-success">
+                                <input type="radio" checked id="success1" name="success" value="true" />
+                                <label for="success1">ใช้งาน</label>
+                            </div>
+                            <div class="radio icheck-warning">
+                                <input type="radio" id="success2" name="success" value="false" />
+                                <label for="success2">หยุดใช้งาน</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>message</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="..."></textarea>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- /.row -->
+                    
+        </div>
+        
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
+        </div>
+        
+        </form>
+        <!-- /.card-body -->
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block jspagelevel %}
+<script>
+    
+    $(document).ready(function() {
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+
+        bsCustomFileInput.init();
+
+        $("input[data-bootstrap-switch]").each(function(){
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+        
+    });
+</script>
+{% endblock jspagelevel %}

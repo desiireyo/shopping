@@ -1,0 +1,193 @@
+{% load static %}
+<div class="header-bottom_area ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-9 col-sm-7">
+                
+                {% if '/' == request.path %}
+                {% else %}
+                <div class="category-menu category-menu-hidden">
+                    <div class="category-heading">
+                        <h2 class="categories-toggle"><span>หมวดสินค้า</span></h2>
+                    </div>
+                    <div id="cate-toggle" class="category-menu-list">
+                        <ul>
+                            <li><a href="{% url 'shop' %}"> ทั้งหมด </a></li>
+                            {% for group in setgroups %}
+                            <li class="right-menu"><a href="{{group.get_url}}">{{ group.name }}</a>
+                                <ul class="cat-mega-menu">                                                
+                                    {% for subgroup in setsubgroups %}                                                
+                                    {% if group.id == subgroup.group_id %}
+                                    <li class="right-menu cat-mega-title">
+                                        <a href="{{subgroup.get_url}}">{{ subgroup.name }}</a>
+                                        <ul>
+                                            {% for typegroup in settypegroups %}
+                                            {% if subgroup.id == typegroup.subgroup_id %}
+                                                <li><a href="{{typegroup.get_url}}">{{ typegroup.name }}</a></li>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-7 d-none d-lg-block position-static">
+                <div class="main-menu_area">
+                    <nav class="main_nav">
+                        <ul>
+                            <li class="dropdown-holder"><a href="{% url 'home' %}"> {% if '/' == request.path %} <strong class="yomenu-buttom">หน้าแรก</strong> {%else%} หน้าแรก {% endif %}</a>
+                            </li>
+                            <li><a href="{% url 'shop' %}">{% if '/shop/' == request.path or '/product/' in request.path %} <strong class="yomenu-buttom">สั่งซื้อออนไลน์</strong> {%else%} สั่งซื้อออนไลน์ {% endif %}</a>                                
+                            </li>
+                            <li><a href="{% url 'shop_promotion' %}">{% if '/shop_promotion/' == request.path or '/product_pro/' in request.path %} <strong class="yomenu-buttom">สินค้าโปรโมชั่น</strong> {%else%} สินค้าโปรโมชั่น {% endif %}</a>                                
+                            </li>
+                            <li><a href="{% url 'Delivery' %}">{% if '/Delivery/' == request.path %} <strong class="yomenu-buttom">การจัดส่งสินค้า</strong> {%else%} การจัดส่งสินค้า {% endif %}</a></li>
+                            <li class="dropdown-holder">
+                                <a href="{% url 'contact' %}">{% if '/contact/' == request.path %} <strong class="yomenu-buttom">ติดต่อเรา</strong> {%else%} ติดต่อเรา {% endif %}</a>
+                                <ul class="hm-dropdown">
+                                    <li><a href="#">ร่วมงานกับเรา</a></li>
+                                    <li><a href="#">บริการของเรา</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <div class="login-area">
+                {% if request.user.is_authenticated and request.user.first_name %}
+                    <span>Hi {{ request.user.first_name }} | <a href="{% url 'Logout' %}"> Logout</a></span>
+                {% else %}
+                    <a href="{% url 'Login' %}">Login</a> <span>Or</span> <a href="{% url 'Register' %}">Register</a>
+                {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-5 d-block d-lg-none">
+                <div class="mobile-menu_area">
+                    <ul>
+                        <li class="minicart-area">
+                            <a href="{% url 'cartDetail' %}"><i class="fa fa-shopping-cart"></i><span class="item-count">{{ cart_totalrow }}</span></a>
+                        </li>
+                        <li>
+                            <a href="#mobileMenu" class="mobile-menu_btn toolbar-btn color--white d-lg-none d-block">
+                                <i class="ion-navicon"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header-bottom_area header-sticky stick" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-6 col-sm-7">
+                <div class="header-logo">
+                    <a href="#">
+                        <img src="{% static 'images/menu/logo/logo_02.png' %}" alt="Umino's Header Logo">
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-7 d-none d-lg-block position-static">
+                <div class="main-menu_area">
+                    <nav class="main_nav">
+                        <ul>
+                            <li><a href="{% url 'home' %}"> {% if '/' == request.path %} <strong class="yomenu-buttom-sticky">หน้าแรก</strong> {%else%} <strong class="yomenu-buttom-sticky2">หน้าแรก</strong> {% endif %}</a>
+                            </li>
+                            <li class="megamenu-holder"><a href="{% url 'shop' %}">{% if '/shop/' == request.path or '/product/' in request.path %} <strong class="yomenu-buttom-sticky">สั่งซื้อออนไลน์</strong> {%else%} <strong class="yomenu-buttom-sticky2">สั่งซื้อออนไลน์</strong> {% endif %} </a>
+                                
+                            </li>
+                            <li class="megamenu-holder"><a href="{% url 'shop_promotion' %}">{% if '/shop_promotion/' == request.path or '/product_pro/' in request.path %} <strong class="yomenu-buttom-sticky">สินค้าโปรโมชั่น</strong> {%else%} <strong class="yomenu-buttom-sticky2">สินค้าโปรโมชั่น</strong> {% endif %} </a>
+                                
+                            </li>
+                            <li><a href="{% url 'Delivery' %}">{% if '/Delivery/' == request.path %} <strong class="yomenu-buttom-sticky">การจัดส่งสินค้า</strong> {%else%} <strong class="yomenu-buttom-sticky2">การจัดส่งสินค้า</strong> {% endif %}</a></li>
+                            <li><a href="{% url 'contact' %}">{% if '/contact/' == request.path %} <strong class="yomenu-buttom-sticky">ติดต่อเรา</strong> {%else%} <strong class="yomenu-buttom-sticky2">ติดต่อเรา</strong> {% endif %}</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 d-none d-lg-block">
+                <div class="hm-minicart_area" id="chg_cart2">
+                    {% include 'minicart.html' %}
+                            
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-5 d-block d-lg-none">
+                <!-- <div class="mobile-menu_area">
+                    {% include 'minicart.html' %}
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mobile-menu_wrapper" id="mobileMenu">
+    <div class="offcanvas-menu-inner">
+        <div class="container">
+            <a href="#" class="btn-close"><i class="ion-android-close"></i></a>
+            <div class="offcanvas-inner_search">
+                <form action="#" class="hm-searchbox">
+                    <input type="text" placeholder="Search for item...">
+                    <button class="search_btn" type="submit"><i class="ion-ios-search-strong"></i></button>
+                </form>
+            </div>
+            <nav class="offcanvas-navigation">
+                <ul class="mobile-menu">
+                    <li class="menu-item-has-children active"><a href="{% url 'home' %}"><span
+                            class="mm-text">หน้าแรก</span></a>
+                        
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'shop' %}">
+                            <span class="mm-text">สั่งซื้อออนไลน์</span>
+                        </a>                        
+                    </li>                    
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'shop' %}">
+                            <span class="mm-text">สินค้าโปรโมชั่น</span>
+                        </a>                        
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'Delivery' %}">
+                            <span class="mm-text">การจัดส่งสินค้า</span>
+                        </a>                        
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="{% url 'contact' %}">
+                            <span class="mm-text">ติดต่อเรา</span>
+                        </a>                        
+                    </li>
+                    
+                </ul>
+            </nav>
+            <nav class="offcanvas-navigation user-setting_area">
+                <ul class="mobile-menu">
+                    <li class="menu-item-has-children active"><a href="javascript:void(0)"><span
+                            class="mm-text">User
+                            Setting</span></a>
+                        <!--<ul class="sub-menu">
+                            
+                        </ul> -->
+                    </li>
+                    <li>
+                        <a href="{% url 'orderHistory' %}">
+                            <span class="mm-text">ประวัติการสั่งซื้อ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'cartDetail' %}">
+                            <span class="mm-text">ตะกร้าสินค้า</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

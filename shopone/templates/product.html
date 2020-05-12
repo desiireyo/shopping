@@ -1,0 +1,391 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">หน้าแรก</a></li>
+                <li><a href="{% url 'shop' %}">สั่งซื้อออนไลน์</a></li>
+                <li>
+                    <a href="{{slug1.get_url}}">{{slug1}}</a>
+                </li>
+                <li>
+                    <a href="{{slug2.get_url}}">{{slug2}}</a>
+                </li>
+                <li>
+                    <a href="{{slug3.get_url}}">{{slug3}}</a>
+                </li>
+                <li>{{product.name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+
+<!-- Begin Umino's Single Product Area -->
+<div class="sp-area">
+    <div class="container">
+        <div class="sp-nav">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="sp-img_area">
+                        <div class="zoompro-border">
+                            {% if promotion.0 %}
+                            <div class="ribbon-wrapper ribbon-lg">
+                                <div class="ribbon bg-success">
+                                    {{ promotion.0 }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if product.image %}
+                            <img class="zoompro" src="{{ product.image.url }}" data-zoom-image="{{ product.image.url }}" alt="" />
+                            {% endif %}
+                        </div>
+                        <div id="gallery" class="sp-img_slider slider-navigation_style-4">
+                            {% if product.image %}
+                            <a class="active" data-image="{{ product.image.url }}" data-zoom-image="{{ product.image.url }}">
+                                <img src="{{ product.image.url }}">
+                            </a>
+                            
+                            {% for imageItem in imageItems %}
+                            <a data-image="{{ imageItem.image.url }}" data-zoom-image="{{ imageItem.image.url }}">
+                                <img src="{{ imageItem.image.url }}" alt="{{ imageItem.name }}">
+                            </a>
+                            {% endfor %}
+
+                            {% endif %}
+                            <a data-image="{% static 'images/product/large-size/3.jpg' %}" data-zoom-image="{% static 'images/product/large-size/3.jpg' %}">
+                                <img src="{% static 'images/product/small-size/3.jpg' %}" alt="">
+                            </a>
+                            <a data-image="{% static 'images/product/large-size/4.jpg' %}" data-zoom-image="{% static 'images/product/large-size/4.jpg' %}">
+                                <img src="{% static 'images/product/small-size/4.jpg' %}" alt="">
+                            </a>
+                            <a data-image="{% static 'images/product/large-size/5.jpg' %}" data-zoom-image="{% static 'images/product/large-size/5.jpg' %}">
+                                <img src="{% static 'images/product/small-size/5.jpg' %}" alt="">
+                            </a>
+                            <a data-image="{% static 'images/product/large-size/6.jpg' %}" data-zoom-image="{% static 'images/product/large-size/6.jpg' %}">
+                                <img src="{% static 'images/product/small-size/6.jpg' %}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="sp-content">
+                        <div class="page-navigation">
+                            <!-- <a href="javascript:void(0)" class="prev">
+                                <i class="ion-chevron-left"></i>
+                            </a>
+                            <a href="javascript:void(0)" class="next">
+                                <i class="ion-chevron-right"></i>
+                            </a> -->
+                        </div>
+                        <div class="price-box">
+                            {% if request.user.is_authenticated %}
+                            <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                            <span class="old-price">{{ product.price_mem|intcomma }}</span>
+                            {% else %}
+                            <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                            <span class="old-price">{{ product.price_guest|intcomma }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="sp-heading">
+                            <h2><a href="#">{{ product.name }}</a></h2>
+                        </div>
+                        <div class="rating-box">
+                            <ul>
+                                <li>{{ promotion.0 }}</li>
+                            </ul>
+                            <div class="rating-info">
+                                <!-- <a href="javascript:void(0)">(1 customer review)</a> -->
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <p>{{ product.memo }}</p>
+                        </div>
+                        <!-- 
+                        <div class="quantity">
+                            <label>Quantity</label>
+                            <div class="cart-plus-minus">
+                                <input class="cart-plus-minus-box" value="1" type="text">
+                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                            </div>
+                            <div class="additional-btn_area">
+                                <a class="additional_btn" href="cart.html">Add To Cart</a>
+                            </div>
+                        </div>
+                        -->
+                        <div>
+                        <!-- <form class="" action="{% url 'addCart' product.id %}" method="POST"> -->
+                            {% csrf_token %}
+                                <div class="quantity">
+                                    <label>Quantity</label>
+                                    <div class="btn-group mb-3" role="group" aria-label="Second group">
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" value="1" type="text" name="product_qty" id="product_qty{{product.id}}">
+                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                        </div>
+                                        <div class="additional-btn_area">
+                                            <!--<a class="btn btn-primary" href="{% url 'addCart' product.id %}">Add To Cart</a>-->
+                                            <!-- <input type="submit" class="additional_btn" value="เพิ่มสินค้า"> -->
+                                            <input type="hidden" id="hd_id{{product.id}}" name="hd_id" value="{{product.id}}">
+                                            <button class="btn btn-outline-primary AddCartBtn" product_id="{{product.id}}">เพิ่มสินค้า</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        <!-- </form> -->
+                        </div>
+                        <div class="category-list_area">
+                            <h6>Category:</h6>
+                            <ul class="tags-list">
+                                <li>
+                                    <a href="{{slug1.get_url}}">{{slug1}}</a>
+                                </li>
+                                <li>
+                                    <a href="{{slug2.get_url}}">{{slug2}}</a>
+                                </li>
+                                <li>
+                                    <a href="{{slug3.get_url}}">{{slug3}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Umino's Single Product Area End Here -->
+
+<div class="sp-tab_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sp-product-tab_nav">
+                    <div class="product-tab">
+                        <ul class="nav product-menu">
+                            <li><a class="active" data-toggle="tab" href="#description"><span>Description</span></a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="tab-content umino-tab_content">
+                        <div id="description" class="tab-pane active show" role="tabpanel">
+                            <div class="product-description">
+                                <ul>
+                                    <li>- จัดส่งทุกวัน อังคาร และวันศุกร์ โดย Lalamove ภายในเขต กรุงเทพฯ และ ปริมณฑล
+                                    </li>
+                                    <li>- จัดส่งระหว่างเวลา 15.30 – 18.30 น.</li>
+                                    <li>- สำหรับพื้นที่ต่างจังหวัด จัดส่งสินค้า ทุกวันศุกร์ โดย Inter Express ลูกค้าจะได้รับสินค้าภายในวันถัดไป</li>
+                                    <li>- หากกำหนดวันจัดส่งสินค้าตรงกับ วันหยุดราชการ หรือ วันหยุดนักขัตฤกษ์ ทางบริษัทฯ จะทำการส่งสินค้าให้ในวันทำการถัดไป</li>
+                                    <li>- เจ้าหน้าที่จัดส่งจะทำการนัดหมาย ยืนยันการจัดส่งสินค้า รบกวนลูกค้าให้เบอร์โทรศัพท์ ที่ใช้ในการติดต่อ เพื่อจัดส่งสินค้า ไว้ด้วยค่ะ</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="specification" class="tab-pane" role="tabpanel">
+                            <table class="table table-bordered specification-inner_stuff">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2"><strong>Memory</strong></td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td>test 1</td>
+                                        <td>8gb</td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2"><strong>Processor</strong></td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td>No. of Cores</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="reviews" class="tab-pane" role="tabpanel">
+                            <div class="tab-pane active" id="tab-review">
+                                <form class="form-horizontal" id="form-review">
+                                    <div id="review">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 50%;"><strong>Customer</strong></td>
+                                                    <td class="text-right">25/04/2019</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <p>Good product! Thank you very much</p>
+                                                        <div class="rating-box">
+                                                            <ul>
+                                                                <li><i class="ion-ios-star"></i></li>
+                                                                <li><i class="ion-ios-star"></i></li>
+                                                                <li><i class="ion-ios-star"></i></li>
+                                                                <li class="silver-color"><i class="ion-ios-star-half"></i></li>
+                                                                <li class="silver-color"><i class="ion-ios-star-outline"></i></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <h2>Write a review</h2>
+                                    <div class="form-group required">
+                                        <div class="col-sm-12 p-0">
+                                            <label>Your Email <span class="required">*</span></label>
+                                            <input class="review-input" type="email" name="con_email" id="con_email" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required second-child">
+                                        <div class="col-sm-12 p-0">
+                                            <label class="control-label">Share your opinion</label>
+                                            <textarea class="review-textarea" name="con_message" id="con_message"></textarea>
+                                            <div class="help-block"><span class="text-danger">Note:</span> HTML is not
+                                                translated!</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group last-child required">
+                                        <div class="col-sm-12 p-0">
+                                            <div class="your-opinion">
+                                                <label>Your Rating</label>
+                                                <span>
+                                                <select class="star-rating">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </span>
+                                            </div>
+                                        </div>
+                                        <div class="umino-btn-ps_right">
+                                            <a href="javascript:void(0)" class="umino-btn umino-btn_dark">Continue</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="umino-product_area umino-product_area-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="umino-section_title">
+                    <h3>Related Products</h3>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="umino-product_slider-2 slider-navigation_style-1">
+                    {% for product_relate in product_related %}
+                    <div class="slide-item">                        
+                        <div class="single-product">
+                            <div class="product-img">
+                                <a href="{{ product_relate.get_url }}">
+                                    <img class="primary-img" src="{{ product_relate.image.url }}" alt="Umino's Product Image">
+                                </a>
+                                <div class="add-actions">
+                                    
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                <div class="product-desc_info">
+                                    <div class="price-box">
+                                        {% if request.user.is_authenticated %}
+                                            {% if product_relate.disct_mem > 0 %}
+                                            <span class="new-price">{{ product_relate.netprice_mem|intcomma }}</span>
+                                            <span class="old-price">{{ product_relate.price_mem|intcomma }}</span>
+                                            {% else %}
+                                            <span class="new-price">{{ product_relate.netprice_mem|intcomma }}</span>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if product_relate.disct_guest > 0 %}
+                                            <span class="new-price">{{ product_relate.netprice_guest|intcomma }}</span>
+                                            <span class="old-price">{{ product_relate.price_guest|intcomma }}</span>
+                                            {% else %}
+                                            <span class="new-price">{{ product_relate.netprice_guest|intcomma }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <h6 class="product-name"><a href="{{ product_relate.get_url }}">{{ product.name }}</a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    {% endfor %}
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="umino-product_area umino-product_area-3 section-space_add">
+
+</div>
+
+{% endblock %}
+
+{% block jsfront %}
+
+<script type="text/javascript">
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    $('.swalDefaultInfo').click(function() {
+      Toast.fire({
+        icon: 'success',
+        title: 'เพิ่มสินค้า เข้าตะกร้าแล้ว'
+      })
+    });
+
+    $('.AddCartBtn').on('click', function(){
+        var product_id = $(this).attr('product_id');
+        var product_qty = $('#product_qty'+product_id).val();
+
+        // console.log(product_id+':'+product_qty);
+        req = $.ajax({
+            type: 'GET',
+            url: '{% url "addCart3" %}',
+            data:{
+                product_qty : product_qty,
+                product_id : product_id,
+            }
+        });
+        req.done(function(data){
+            // console.log('success');
+            // console.log(data);
+
+            $('#chg_cart').html(data);
+            $('#chg_cart2').html(data);
+
+            Toast.fire({
+                icon: 'success',
+                title: 'เพิ่มสินค้า เข้าตะกร้าแล้ว'
+            });
+        });
+    });
+</script>
+
+{% endblock jsfront %}

@@ -1,0 +1,75 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<div class="umino-login-register_area">
+    <div class="container">
+        <div class="row">
+<form method="POST" id="form_id" name="form_nm">
+    {{ car_form.as_p }}
+
+
+</form>
+
+</div>
+</div>
+</div>
+{% endblock content %}
+
+{% block jsfront %}
+<script>
+    $(document).ready(function() {
+        //alert('funcionou');
+        $('#id_brand_select').change(function() {
+            console.log($('#id_brand_select').val());
+            populateCar(this);
+        });
+        $('#id_name').addClass('name');
+
+        cars = {{ car_form.cars | safe }}
+        brands = {{ car_form.brands | safe}}
+        populateBrand();
+        $("#id_car_select").empty();
+        $("#id_car_select").append('<option value="" disabled selected>First select a brand</option>');
+
+
+        function populateBrand() {
+            $('#id_brand_select').empty();
+            $("#id_brand_select").append('<option value="" disabled selected>Select your option</option>');
+            // $.each(brands, function(v) {
+            //     console.log(brands[v]);
+            //     $('#id_brand_select')
+            //         .append($("<option></option>")
+            //         .attr("value", brands[v])
+            //         .text(brands[v]));
+            // });
+            for (let [v, vbrands] of Object.entries(brands)){
+                for (brand in brands){
+                    $('#id_brand_select')
+                        .append($("<option></option>")
+                        .attr("value", brands[v])
+                        .text(brands[v]));
+                }
+            }
+        }
+
+        function populateCar(event) {
+            brand = $("#id_brand_select option:selected").text();
+            $("#id_car_select").empty();
+            $("#id_car_select").append('<option value="" disabled selected>Select your option2</option>');
+            for (let [b, bcars] of Object.entries(cars)) {
+                if (b == brand) {
+                    //alert(b);
+                    for (car in bcars) {
+                        $('#id_car_select')
+                            .append($("<option></option>")
+                                .attr("value", bcars[car])
+                                .text(bcars[car]));
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock jsfront %}

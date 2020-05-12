@@ -1,0 +1,36 @@
+/*----------------------------------------*/
+/*  17 - Components - Form
+/*----------------------------------------*/
+/* ---Umino's Newsletter Form--- */
+.newsletter-form_wrap {
+	.subscribe-form {
+		position: relative;
+		.newsletter-input {
+			border: 1px solid $border-color;
+			border-radius: 50px;
+			font-size: 14px;
+			height: 35px;
+			width: 100%;
+			padding: 0 127px 0 20px;
+		}
+		.newsletter-btn {
+			background-color: $heading-color;
+			color: $bg-white_color;
+			position: absolute;
+			font-size: 21px;
+			top: 0;
+			right: 0;
+			width: 120px;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			border-radius: 50px;
+			font-size: 14px;
+			@extend %basetransition;
+			&:hover {
+				background-color: darken($primary-color, 7%);
+				color: $bg-white_color;
+			}
+		}
+	}
+}

@@ -1,0 +1,79 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load myfunc %}
+
+
+{% block content %}
+
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">การจัดส่งสินค้า</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<!-- Begin Umino's Frequently Area -->
+<div class="frequently-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                
+                <!-- Begin Frequently Accordin -->
+                <div class="frequently-accordion">
+                    <div id="accordion">
+                        <div class="card actives">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <a href="javascript:void(0)" class="javascript:void(0)" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        จัดส่งทุกวัน อังคาร และวันศุกร์ โดย Lalamove ภายในเขต กรุงเทพฯ และ ปริมณฑล
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <ul>
+                                        <li>- จัดส่งระหว่างเวลา 15.30 – 18.30 น.</li>
+                                        <li>- สำหรับพื้นที่ต่างจังหวัด จัดส่งสินค้า ทุกวันศุกร์ โดย Inter Express ลูกค้าจะได้รับสินค้าภายในวันถัดไป</li>
+                                        <li>- หากกำหนดวันจัดส่งสินค้าตรงกับ วันหยุดราชการ หรือ วันหยุดนักขัตฤกษ์ ทางบริษัทฯ จะทำการส่งสินค้าให้ในวันทำการถัดไป</li>
+                                        <li>- เจ้าหน้าที่จัดส่งจะทำการนัดหมาย ยืนยันการจัดส่งสินค้า รบกวนลูกค้าให้เบอร์โทรศัพท์ ที่ใช้ในการติดต่อ เพื่อจัดส่งสินค้า ไว้ด้วยค่ะ</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% for data in qConditions %}
+                        <div class="card">
+                            <div class="card-header" id="hd{{data.orderNo}}">
+                                <h5 class="mb-0">
+                                    <a href="javascript:void(0)" class="collapsed" data-toggle="collapse" data-target="#collapse{{data.orderNo}}" aria-expanded="false" aria-controls="collapse{{data.orderNo}}">
+                                        {{ data.header }}
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapse{{data.orderNo}}" class="collapse" aria-labelledby="hd{{data.orderNo}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    
+                                     {{ data.detail }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}                        
+
+                        <!-- {{ 'abc0010defabc'|cut:"abc" }}<br> -->
+                        <!-- {{ 'ABC'|lower}}<br> -->
+                        <!-- <p>A random value, 1 ≤ {% random_int 1 10000 %} ≤ 10.</p><br> -->
+                    </div>
+                </div>
+                <!--Frequently Accordin End Here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

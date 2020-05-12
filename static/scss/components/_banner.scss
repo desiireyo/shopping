@@ -1,0 +1,330 @@
+/*----------------------------------------*/
+/*  14 - Components - Banner
+/*----------------------------------------*/
+.umino-banner_area {
+	padding-top: 60px;
+	.banner-item {
+		position: relative;
+		.banner-content {
+			position: absolute;
+			top: 50%;
+			left: 55%;
+			transform: translateY(-50%);
+			@include breakpoint(xx-small) {
+				left: 50%;
+				width: 50%;
+			}
+			> span {
+				color: $fire-engine-red_color;
+				font-weight: 600;
+				padding-bottom: 5px;
+				display: block;
+				@include breakpoint(xx-small) {
+					font-size: 13px;
+					padding-bottom: 0;
+				}
+			}
+			> h4,
+			h3 {
+				font-size: 20px;
+				font-weight: 600;
+				margin-bottom: 0;
+			}
+			> h4 {
+				padding-bottom: 5px;
+				@include breakpoint(xx-small) {
+					font-size: 14px;
+				}
+			}
+			> h3 {
+				padding-bottom: 25px;
+				@include breakpoint(xx-small) {
+					font-size: 13px;
+					padding-bottom: 10px;
+				}
+			}
+			> .umino-btn {
+				@include breakpoint(max-normal) {
+					width: 120px;
+					height: 30px;
+					line-height: 28px;
+					font-size: 14px;
+				}
+				@include breakpoint(xx-small) {
+					width: 80px;
+					height: 25px;
+					line-height: 25px;
+					font-size: 11px;
+				}
+			}
+			&.banner-content-2 {
+				> span {
+					color: $primary-color;
+				}
+				> h4,
+				h3 {
+					color: $bg-white_color;
+				}
+			}
+		}
+	}
+	[class*="col-"] {
+		&:first-child {
+			.banner-item {
+				@include breakpoint(max-medium) {
+					margin-bottom: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Umino's Banner Area Three--- */
+.umino-banner_area-3 {
+	background-color: $bg-snow_color;
+	.container-fluid {
+		padding: 0 70px;
+		@include breakpoint(max-small) {
+			padding: 0 15px;
+		}
+		.umino-banner_nav {
+			background-color: $bg-white_color;
+			position: relative;
+			margin-top: -120px;
+			padding: 60px 0;
+			z-index: 3;
+			@include breakpoint(max-normal) {
+				margin-top: 0;
+			}
+			.row {
+				[class*="col-"] {
+					&:first-child {
+						.banner-item {
+							@include breakpoint(max-medium) {
+								margin-bottom: 0;
+							}
+						}
+					}
+					.row {
+						[class*="col-"] {
+							&:nth-child(-n + 3) {
+								.banner-item {
+									padding-bottom: 30px;
+								}
+							}
+							&:nth-child(-n + 5) {
+								.banner-item {
+									@include breakpoint(max-small) {
+										padding-bottom: 30px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			.banner-item {
+				.banner-content {
+					left: 48%;
+					> h4 {
+						text-align: center;
+						padding-bottom: 25px;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* ---Umino's Banner Area Four--- */
+.umino-banner_area-4 {
+	padding: 60px 0;
+	.container-fluid {
+		padding: 0 70px;
+		@include breakpoint(max-small) {
+			padding: 0 30px;
+		}
+		.row {
+			[class*="col-"] {
+				&:first-child {
+					.banner-item {
+						@include breakpoint(max-medium) {
+							margin-bottom: 0;
+						}
+					}
+				}
+				&:not(:last-child) {
+					.banner-item {
+						@include breakpoint(max-small) {
+							padding-bottom: 30px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* ---Umino's Banner Area Five--- */
+.umino-banner_area-5 {
+	.banner-item {
+		.banner-content {
+			left: 40px;
+			z-index: 1;
+			> span,
+			h4,
+			h3 {
+				color: $bg-white_color;
+				font-weight: $heading-font_weight;
+			}
+			> h4 {
+				font-size: 31px;
+				@include breakpoint(max-medium) {
+					font-size: 28px;
+				}
+				@include breakpoint(xx-small) {
+					font-size: 15px;
+				}
+			}
+			> h3 {
+				font-size: 16px;
+				@include breakpoint(max-medium) {
+					padding-bottom: 15px;
+				}
+				@include breakpoint(xx-small) {
+					font-size: 16px;
+				}
+			}
+			&.banner-content-2 {
+				> span {
+					color: $bg-red_color;
+					font-weight: $body-font_weight-2;
+					letter-spacing: 0.5px;
+				}
+				> h4 {
+					font-size: 37px;
+					color: $grey-color;
+					text-transform: uppercase;
+					font-weight: $body-font_weight-2;
+					@include breakpoint(max-medium) {
+						font-size: 28px;
+					}
+					@include breakpoint(xx-small) {
+						font-size: 15px;
+					}
+				}
+				> h3 {
+					font-size: 26px;
+					color: $heading-color;
+					text-transform: uppercase;
+					font-weight: $body-font_weight-2;
+					@include breakpoint(max-medium) {
+						font-size: 20px;
+						padding-bottom: 15px;
+					}
+					@include breakpoint(xx-small) {
+						font-size: 16px;
+					}
+				}
+				> .banner-sticker {
+					background-color: $bg-red_color;
+					width: 70px;
+					height: 70px;
+					border-radius: 100%;
+					text-align: center;
+					position: relative;
+					@include breakpoint(max-normal) {
+						width: 50px;
+						height: 50px;
+					}
+					@include breakpoint(xx-small) {
+						width: 40px;
+						height: 40px;
+					}
+					> p {
+						color: $bg-white_color;
+						margin-bottom: 0;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						font-weight: $body-font_weight-2;
+						@include breakpoint(max-normal) {
+							line-height: 1.2;
+							font-size: 12px;
+						}
+						@include breakpoint(xx-small) {
+							font-size: 10px;
+						}
+						> span {
+							display: block;
+						}
+					}
+				}
+				> a {
+					> i {
+						font-size: 26px;
+						@include breakpoint(max-normal) {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+	[class*="col-"] {
+		&:first-child {
+			.banner-item {
+				@include breakpoint(max-medium) {
+					margin-bottom: 0;
+				}
+				@include breakpoint(max-small) {
+					margin-bottom: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Umino's Banner Area Six--- */
+.umino-banner_area-6 {
+	> .container-fluid {
+		padding: 0;
+		overflow: hidden;
+	}
+}
+
+/* ---Umino's Banner Area Seven--- */
+.umino-banner_area-7 {
+	.banner-item {
+		.banner-content {
+			> span {
+				color: $grey-color;
+			}
+			> h3,
+			h4 {
+				font-size: 16px;
+				font-weight: 600;
+			}
+			> h3 {
+				padding-bottom: 10px;
+			}
+		}
+	}
+	[class*="col-"] {
+		&:first-child {
+			.banner-item {
+				@include breakpoint(max-medium) {
+					margin-bottom: 0;
+				}
+			}
+		}
+		&:not(:last-child) {
+			.banner-item {
+				@include breakpoint(max-medium) {
+					margin-bottom: 30px;
+				}
+			}
+		}
+	}
+}

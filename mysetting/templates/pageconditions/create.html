@@ -1,0 +1,117 @@
+{% extends 'backend/layout.html' %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">กำหนดเงื่อนไขต่างๆ</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">กำหนดเงื่อนไขต่างๆ</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+        <h3 class="card-title">เพิ่มข้อมูล - กำหนดเงื่อนไขต่างๆ</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <!-- /.card-header -->
+        <form role="form" id="quickForm" method="POST" action="{% url 'CreateConditions' %}">
+            {% csrf_token %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="id_order">ลำดับรายการ</label>
+                        <input type="text" class="form-control" id="id_order" name="order" placeholder="">
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <label for="id_header">หัวข้อ</label>
+                        <input type="text" class="form-control" id="id_header" name="header" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_detail">รายละเอียด</label>
+                        <textarea class="form-control" id="id_detail" name="detail" rows="3" placeholder="..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>สถานะ</label>
+                        <div class="radio icheck-success">
+                            <input type="radio" id="success1" name="success" value="true" />
+                            <label for="success1">ใช้งาน</label>
+                        </div>
+                        <div class="radio icheck-warning">
+                            <input type="radio" checked id="success2" name="success" value="false" />
+                            <label for="success2">หยุดใช้งาน</label>
+                        </div>
+                    </div>
+                <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                
+            </div>
+            <!-- /.row -->
+        
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
+        </div>
+        
+        </form>
+        <!-- /.card-body -->
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block jspagelevel %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $('#quickForm').validate({
+            rules: {
+                order: {
+                    required: true,
+                },
+                header: {
+                    required: true,
+                },
+                detail:{
+                    required: true,
+
+                }
+            },
+            messages: {
+                order: {
+                    required: "กรุณาระบุ ลำดับรายการ",
+                },
+                header: {
+                    required: "กรุณาระบุ หัวข้อ",
+                },
+                detail: {
+                    required: "กรุณาระบุ รายละเอียด",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+{% endblock jspagelevel %}

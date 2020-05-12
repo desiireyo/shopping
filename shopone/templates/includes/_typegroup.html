@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>code</th>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for typegroup in typegroups %}
+        <tr>
+            <td>{{ typegroup.code }}</td>
+            <td>{{ typegroup.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

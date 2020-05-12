@@ -1,0 +1,100 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<div class="umino-login-register_area">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h5>setgroup</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>code</th>
+                            <th>name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for group in groups %}
+                        <tr>
+                            <td><a href="" data-url="{% url 'vwSetsubgroup' %}?group={{ group.id }}" data-group="{{ group.id }}" class="group" >{{ group.code }}</a></td>
+                            <td>{{ group.name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <div id="id_subgroup">
+                    <h5>setsubgroup</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>code</th>
+                                <th>name</th>
+                            </tr>
+                        </thead>
+                        
+                    </table>
+                </div>
+            </div>
+            <div class="col">
+                <div id="id_typegroup">
+                    <h5>settypegroup</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>code</th>
+                                <th>name</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsfront %}
+    <script>
+        $('.group').on('click',function(event){
+            // console.log('xxx');
+            let url = $(this).data('url');
+            let group = $(this).data('group');
+            console.log(url);
+            console.log(group);
+
+            $.ajax({
+                url:url,
+                data: {
+                    group: group
+                },
+                success: function(response){
+                    $('#id_subgroup').html(response);
+                }
+            });
+            event.preventDefault();
+        });
+
+        $(document).on('click','.subgroup',function(event){
+            let url = $(this).data('url');
+            let subgroup = $(this).data('subgroup');
+            console.log(url);
+            console.log(subgroup);
+
+            $.ajax({
+                url:url,
+                data: {
+                    subgroup: subgroup
+                },
+                success: function(response){
+                    $('#id_typegroup').html(response);
+                }
+            });
+            event.preventDefault();
+        })
+    </script>
+{% endblock jsfront %}

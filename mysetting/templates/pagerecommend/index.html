@@ -1,0 +1,110 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">รายการสินค้าแนะนำ</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">รายการสินค้าแนะนำ</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">รายการสินค้าแนะนำ</h3>
+                <div class="card-tools">
+                    <a href="{% url 'createNewrecommand' %}" class="btn btn-block btn-outline-success btn-sm"><i class="fas fa-plus"></i> เพิ่มข้อมูล</a>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="dataSetgroup" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class="text-center">Position</th>
+                  <th class="text-center">Name</th>
+                  <th class="text-center">message</th>
+                  <th class="text-center">flag</th>
+                  <th class="text-center">Edit/Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in queryset %}
+                <tr>
+                  <td align="left">{{data.position}}</td>
+                  <td align="left">{{data.slug.name}}</td>
+                  <td align="left">{{data.message}}</td>
+                  <td align="left">{{data.flag}}</td>
+                  <td align="center">
+                    <a class="btn btn-info btn-sm" href="{% url 'editRecommand' data.id %}">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-{{data.id}}">
+                        <i class="fas fa-trash">
+                        </i> Delete
+                    </button>
+                  </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block modal %}
+{% for data in queryset %}
+<div class="modal fade" name="modal" id="modal-{{data.id}}">
+    <div class="modal-dialog">
+        
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm Delete</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{data.slug.code}} - {{data.slug.name}}</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Delete</button> -->
+          <a class="btn btn-danger btn-sm" href="{% url 'delRecommand' data.id %}">
+            <i class="fas fa-trash">
+            </i>
+            Delete
+        </a>
+        </div>
+      </div>
+        
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+{% endblock modal %}
+
+{% block jspagelevel %}
+<script>
+    $(document).ready(function() {
+        $('#dataSetgroup').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+</script>
+{% endblock jspagelevel %}

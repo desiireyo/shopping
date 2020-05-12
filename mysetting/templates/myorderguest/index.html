@@ -1,0 +1,253 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">รายการสั่งซื้อ</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">รายการสั่งซื้อ</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">รายการสั่งซื้อ</h3>
+                <div class="card-tools">
+                    <a href="" class="btn btn-block btn-outline-success btn-sm"><i class="fas fa-plus"></i> เพิ่มข้อมูล</a>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="dataOrdermember" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class="text-center">ผู้สั่งสินค้า</th>
+                  <th class="text-center">วันที่สั่ง</th>
+                  <th class="text-center">ยอดเงิน</th>
+                  <th class="text-center">memo</th>
+                  <th class="text-center">status</th>
+                  <th class="text-center">View</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in queryset %}
+                <tr>
+                  <td align="left">{{data.fname}}-{{data.lname}}</td>
+                  <td align="left">{{data.created|date:"d M Y"}}</td>
+                  <td align="center">{{data.total}}</td>
+                  <td align="left">{{data.memo}}</td>
+                  <td align="center">
+                      {% if data.flag %}
+                      <span class="badge badge-success">ยืนยันการสั่งซื้อ</span>
+                      {% else %}
+                      <span class="badge badge-warning">รอการยืนยัน</span>
+                      {% endif %}
+                  </td>
+                  <td align="center">
+                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-lg-{{data.id}}" href="">
+                        <i class="fas fa-folder">
+                        </i>
+                        View
+                    </a>
+                    <!-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-{{data.id}}">
+                        <i class="fas fa-trash">
+                        </i> Delete
+                    </button> -->
+                  </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block modal %}
+{% for data in queryset %}
+<div class="modal fade" id="modal-lg-{{data.id}}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">รายละเอียด</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <section class="content">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-12">
+                      
+                      <!-- Main content -->
+                      <div class="invoice p-3 mb-3">
+                        <!-- title row -->
+                        <div class="row">
+                          <div class="col-12">
+                            <h4>
+                              <i class="fas fa-globe"></i> ร้านสลักศิลป์ฟู้ดส์ช็อป
+                              <small class="float-right">Date: {{data.created|date:'d M Y'}}</small>
+                            </h4>
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <!-- info row -->
+                        <div class="row invoice-info">
+                          <div class="col-sm-4 invoice-col">
+                            ลูกค้า
+                            <address>
+                              <strong>{{data.fname}} {{data.lname}}</strong><br>
+                              <!-- 795 Folsom Ave, Suite 600<br> -->
+                              <!-- San Francisco, CA 94107<br> -->
+                              Phone: {{data.tel}}<br>
+                              Email: {{data.email}}
+                            </address>
+                          </div>
+                          <!-- /.col -->
+                          <div class="col-sm-4 invoice-col">
+                            <!-- To
+                            <address>
+                              <strong>John Doe</strong><br>
+                              795 Folsom Ave, Suite 600<br>
+                              San Francisco, CA 94107<br>
+                              Phone: (555) 539-1037<br>
+                              Email: john.doe@example.com
+                            </address> -->
+                          </div>
+                          <!-- /.col -->
+                          <div class="col-sm-4 invoice-col">
+                            <b>Invoice #{{data.id}}</b><br>
+                            <br>
+                            <b>Order ID:</b> {{data.id}}<br>
+                            <b>Payment Due:</b> {{data.created|date:'d/m/Y'}}<br>
+                            <!-- <b>Account:</b> 968-34567 -->
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+          
+                        <!-- Table row -->
+                        <div class="row">
+                          <div class="col-12 table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                              <tr>
+                                
+                                <th>Product</th>
+                                <th>barcode #</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                                {% for detail in query2 %}
+                                {% if detail.order_id == data.id %}
+                                    <tr>                                        
+                                        <td>{{detail.xproduct.code}}</td>
+                                        <td>{{detail.xproduct.barcode}}</td>
+                                        <td>{{detail.xproduct.productname}}</td>
+                                        <td>฿ {{detail.xproduct.netprice_mem}}</td>
+                                        <td>{{detail.quantity}}</td>
+                                    </tr>
+                                {% endif %}
+                                {% endfor %}
+                                <tr>                                        
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total Price</td>
+                                    <td>฿ {{data.total}}</td>
+                                    <td></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+          
+                        <!-- this row will not appear when printing -->
+                        <div class="row no-print">
+                          <div class="col-12">
+                            <!-- <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
+                            {% if data.flag != True %}
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default-{{data.id}}">
+                                <i class="fas fa-check-circle"></i> ยืนยันการสั่งซื้อ
+                            </button>
+                            {% else %}
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default-{{data.id}}">
+                                <i class="fas fa-check-circle"></i> ยกเลิกการสั่งซื้อ
+                            </button>
+                            {% endif %}
+                            <button type="button" class="btn btn-default float-right" data-dismiss="modal"> Close </button>                            
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.invoice -->
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+              </section>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-default-{{data.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          {% if data.flag != True %}
+          <h4 class="modal-title">ยืนยันการสั่งซื้อ #{{data.id}}</h4>
+          {% else %}
+          <h4 class="modal-title">ยกเลิกการสั่งซื้อ #{{data.id}}</h4>
+          {% endif %}
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        {% if data.flag != True %}
+            <p>ยืนยันการสั่งซื้อสินค้า จาก {{data.fname}} {{data.lname}}&hellip;</p>
+        {% else %}
+            <p>ยกเลิกการสั่งซื้อสินค้า จาก {{data.fname}} {{data.lname}}&hellip;</p>
+        {% endif %}
+        </div>
+        <div class="modal-footer justify-content-between">
+            {% if data.flag != True %}
+            <a href="{% url 'confirmOrderguest' data.id %}" class="btn btn-success">ยืนยัน</a>
+            {% else %}
+            <a href="{% url 'CanconfirmOrderguest' data.id %}" class="btn btn-success">ยืนยัน</a>
+            {% endif %}
+            
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  {% endfor %}
+{% endblock modal %}
+
+{% block jspagelevel %}
+<script>
+    $(document).ready(function() {
+        $('#dataOrdermember').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+</script>
+{% endblock jspagelevel %}

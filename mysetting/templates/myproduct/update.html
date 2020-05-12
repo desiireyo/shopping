@@ -1,0 +1,275 @@
+{% extends 'backend/layout.html' %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">รหัสสินค้า</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">รหัสสินค้า</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="container-fluid">
+    
+    <div class="card card-default">
+        <div class="card-header">
+        <h3 class="card-title">แก้ไข - รหัสสินค้า</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <!-- /.card-header -->
+        <form id="myForm" action="{% url 'updProduct' %}" method="POST" enctype="multipart/form-data" data-urlgroup="{% url 'myDsubgroup' %}" data-urlsubgroup="{% url 'myDtypegroup' %}">
+            {% csrf_token %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <input type="text" class="form-control" id="code" name="code" value="{{ product.code }}" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="productname">product name</label>
+                        <input type="text" class="form-control" id="productname" name="productname" value="{{ product.productname }}" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="barcode">barcode</label>
+                        <input type="text" class="form-control" id="barcode" name="barcode" value="{{ product.barcode }}" placeholder="">
+                    </div>                    
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" class="form-control" id="slug" name="slug" value="{{ product.slug }}" readonly placeholder="">
+                    </div>
+                    
+                    <!-- /.form-group -->
+                    
+                <!-- /.form-group -->
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>กลุ่มสินค้า</label>
+                        <select class="form-control select2bs4" id="id_group" name="group" style="width: 100%;">
+                            <option selected="selected">.....</option>
+                            {% for 1data in data1 %}
+                            <option value="{{1data.id}}" {% if 1data == setgroup %}selected="selected"{% endif %}>{{1data.code}} - {{1data.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>sub-กลุ่มสินค้า</label>
+                        <select class="form-control select2bs4" id="id_subgroup" name="subgroup" style="width: 100%;">
+                            <option selected="selected">.....</option>
+                            {% for 2data in data2 %}
+                            <option value="{{2data.id}}" {% if 2data == setsubgroup %}selected="selected"{% endif %}>{{2data.code}} - {{2data.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>type-กลุ่มสินค้า</label>
+                        <select class="form-control select2bs4" id="id_typegroup" name="typegroup" style="width: 100%;">
+                            <option selected="selected">.....</option>
+                            {% for 3data in data3 %}
+                            <option value="{{3data.id}}" {% if 3data == settypegroup %}selected="selected"{% endif %}>{{3data.code}} - {{3data.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>หน่วย</label>
+                        <select class="form-control select2bs4" id="unit" name="unit" style="width: 100%;">
+                            <option selected="selected">.....</option>
+                            {% for 4data in data4 %}
+                            <option value="{{4data.id}}" {% if 4data == setunit %}selected="selected"{% endif %}>{{4data.code}} - {{4data.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>สถานะ</label>
+                        <select class="form-control select2bs4" id="status" name="status" style="width: 100%;">
+                            <!-- <option selected="selected">.....</option> -->
+                            {% for 5data in data5 %}
+                            <option value="{{5data.id}}" {% if 5data.id == 1 %}selected="selected"{% endif %}>{{5data.code}} - {{5data.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+                
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="price_mem">ราคา</label>
+                                <input type="text" class="form-control" id="price_mem" name="price_mem" value="{{ product.price_mem }}" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="disct_mem">ส่วนลด</label>
+                                <input type="text" class="form-control" id="disct_mem" name="disct_mem" value="{{ product.disct_mem }}" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="netprice_mem">ราคา</label>
+                                <input type="text" class="form-control" id="netprice_mem" name="netprice_mem" value="{{ product.netprice_mem }}" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="price_guest">ราคา2</label>
+                                <input type="text" class="form-control" id="price_guest" name="price_guest" value="{{ product.price_guest }}" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="disct_guest">ส่วนลด2</label>
+                                <input type="text" class="form-control" id="disct_guest" name="disct_guest" value="{{ product.disct_guest }}" placeholder="">
+                            </div>
+                        </div>                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="netprice_guest">ราคา2</label>
+                                <input type="text" class="form-control" id="netprice_guest" name="netprice_guest" value="{{ product.netprice_guest }}" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="id_InputFile">File input</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="id_InputFile" name="nm_InputFile">
+                            <label class="custom-file-label" for="id_InputFile">Choose file</label>
+                          </div>
+                        </div>
+                        {% if product.image %}
+                        <p>File uploaded at: <a href="{{ product.image.url }}" target="_blank">{{ product.image.url }}</a></p>
+                        {% else %}
+                        <p>File uploaded at: No File.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>memo</label>
+                        <textarea class="form-control" id="memo" name="memo" rows="3" placeholder="...">{{ product.memo }}</textarea>
+                        <input type="hidden" id="product_id" name="product_id" value="{{product.id}}">
+                    </div>
+                </div>
+            </div>
+                    
+        </div>
+        
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
+        </div>
+        
+        </form>
+        <!-- /.card-body -->
+        
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block jspagelevel %}
+<script>
+    
+    $(document).ready(function() {
+        $('#id_group').change(function(){
+            let urlgroup = $('#myForm').data('urlgroup');
+            let group = $(this).val();
+            console.log(group);
+            $.ajax({
+                url:urlgroup,
+                data: {
+                    group: group
+                },
+                success: function(response){
+                    $('#id_subgroup').html(response);
+                    $('#id_typegroup').empty();
+                }
+            })
+        });
+
+        $('#id_subgroup').change(function(){
+            let urlsubgroup = $('#myForm').data('urlsubgroup');
+            let subgroup = $(this).val();
+            console.log(subgroup);
+            $.ajax({
+                url:urlsubgroup,
+                data: {
+                    subgroup: subgroup
+                },
+                success: function(response){
+                    $('#id_typegroup').html(response);
+                }
+            })
+        });
+
+        $('#id_typegroup').change(function(){
+            let typegroup = $(this).val();
+            console.log(typegroup);
+        });
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+
+        bsCustomFileInput.init();
+        
+        $('#setgroupForm').validate({
+            rules: {
+                code: {
+                    required: true,
+                },
+                name: {
+                    required: true,
+                },
+                slug: {
+                    required: true
+                },
+            },
+            messages: {
+                code: {
+                    required: "Please enter a code",
+                },
+                name: {
+                    required: "Please enter a name",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                slug: "Please enter a slug"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+{% endblock jspagelevel %}

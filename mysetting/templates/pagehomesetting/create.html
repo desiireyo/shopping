@@ -1,0 +1,97 @@
+{% extends 'backend/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">Page Home Setting</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">Page Home Setting</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+        <h3 class="card-title">เพิ่มข้อมูล - Page Home Setting</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <!-- /.card-header -->
+        <form role="form" action="{% url 'addNewband' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="id_name" name="name" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>message</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">Image</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="id_InputFile" name="nm_InputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>สถานะ</label>
+                            <div class="radio icheck-success">
+                                <input type="radio" id="success1" name="success" value="true" />
+                                <label for="success1">ใช้งาน</label>
+                            </div>
+                            <div class="radio icheck-warning">
+                                <input type="radio" checked id="success2" name="success" value="false" />
+                                <label for="success2">หยุดใช้งาน</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.form-group -->
+                    
+                <!-- /.form-group -->
+                </div>
+                
+            </div>
+            <!-- /.row -->
+                    
+        </div>
+        
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
+        </div>
+        
+        </form>
+        <!-- /.card-body -->
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block jspagelevel %}
+<script>
+    
+    $(document).ready(function() {
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+
+        bsCustomFileInput.init();
+        
+    });
+</script>
+{% endblock jspagelevel %}

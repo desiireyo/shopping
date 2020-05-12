@@ -1,0 +1,107 @@
+{% extends 'backend/layout.html' %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">Setsubgroup</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">Setsubgroup</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-table"></i> Setsubgroup</h3>
+        <div class="card-tools">
+            <a href="{% url 'mysetsubgroup-create' %}" class="btn btn-block btn-outline-success btn-sm"><i class="fas fa-plus"></i> เพิ่มข้อมูล</a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="dataSetsubgroup" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>กลุ่มสินค้า</th>
+                        <th>code</th>
+                        <th>name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if object_list %}
+                    {% for setsubgroup in object_list %}
+                        <tr>
+                            <td>[{{setsubgroup.group.code}}]-{{ setsubgroup.group.name }}</td>
+                            <td>{{ setsubgroup.code }}</td>
+                            <td>{{ setsubgroup.name }}</td>
+                            <td align="center">
+                                <a class="btn btn-info btn-sm" href="{% url 'mysetsubgroup-update' setsubgroup.id %}">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-{{setsubgroup.id}}">
+                                    <i class="fas fa-trash">
+                                    </i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+{% endblock content %}
+
+{% block modal %}
+{% for data in object_list %}
+<div class="modal fade" name="modal" id="modal-{{data.id}}">
+    <div class="modal-dialog">
+        
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm Delete</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{data.code}} - {{data.name}}</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Delete</button> -->
+          <a class="btn btn-danger btn-sm" href="{% url 'mysetsubgroup-delete' data.id %}">
+            <i class="fas fa-trash">
+            </i>
+            Delete
+        </a>
+        </div>
+      </div>
+        
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+{% endblock modal %}
+
+{% block jspagelevel %}
+  <script>
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataSetsubgroup').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+  </script>
+{% endblock jspagelevel %}

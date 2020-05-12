@@ -1,0 +1,76 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<div class="umino-login-register_area">
+    <div class="container">
+        <div class="row">
+            <form id="myForm" method="GET" class="form-inline" data-urlgroup="{% url 'vwDsubgroup' %}" data-urlsubgroup="{% url 'vwDtypegroup' %}" >
+                <div class="form-group">
+                    <label for="groupSelect">Setgroup</label>
+                    <select class="form-control select2bs4" id="id_group" name="group" style="width: 100%;">
+                        <option selected="selected">.....</option>
+                        {% for group in groups %}
+                        <option value="{{group.id}}">{{group.code}} - {{group.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subgroupSelect">Setsubgroup</label>
+                    <select class="form-control select2bs4" id="id_subgroup" name="subgroup" style="width: 100%;">
+                        <option selected="selected">.....</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="typegroupSelect">Settypegroup</label>
+                    <select class="form-control select2bs4" id="id_typegroup" name="typegroup" style="width: 100%;">
+                        <option selected="selected">.....</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jsfront %}
+<script>
+    $('#id_group').change(function(){
+        let urlgroup = $('#myForm').data('urlgroup');
+        let group = $(this).val();
+        console.log(urlgroup);
+        $.ajax({
+            url:urlgroup,
+            data: {
+                group: group
+            },
+            success: function(response){
+                $('#id_subgroup').html(response);
+                $('#id_typegroup').empty();
+            }
+        })
+    });
+
+    $('#id_subgroup').change(function(){
+        let urlsubgroup = $('#myForm').data('urlsubgroup');
+        let subgroup = $(this).val();
+        console.log(subgroup);
+        $.ajax({
+            url:urlsubgroup,
+            data: {
+                subgroup: subgroup
+            },
+            success: function(response){
+                $('#id_typegroup').html(response);
+            }
+        })
+    });
+
+    $('#id_typegroup').change(function(){
+        let typegroup = $(this).val();
+        console.log(typegroup);
+    });
+</script>
+{% endblock jsfront %}

@@ -1,0 +1,103 @@
+{% extends 'backend/layout.html' %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">หน่วยนับ</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">หน่วยนับ</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+        <h3 class="card-title">เพิ่มข้อมูล - หน่วยนับ</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <!-- /.card-header -->
+        <form role="form" id="setgroupForm" action="{% url 'addSetunit' %}" method="POST">
+            {% csrf_token %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <input type="text" class="form-control" id="code" name="code" placeholder="">
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <label for="code">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" class="form-control" id="slug" name="slug" placeholder="">
+                    </div>
+                <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                
+            </div>
+            <!-- /.row -->
+        
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
+        </div>
+        
+        </form>
+        <!-- /.card-body -->
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block jspagelevel %}
+<script>
+    $(document).ready(function() {
+        
+        $('#setgroupForm').validate({
+            rules: {
+                code: {
+                    required: true,
+                },
+                name: {
+                    required: true,
+                },
+                slug: {
+                    required: true
+                },
+            },
+            messages: {
+                code: {
+                    required: "Please enter a code",
+                },
+                name: {
+                    required: "Please enter a name",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                slug: "Please enter a slug"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+{% endblock jspagelevel %}

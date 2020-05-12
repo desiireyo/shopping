@@ -1,0 +1,219 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% block content %}
+
+        <div class="umino-slider_area umino-slider_area-4">
+            <div class="container-fluid">
+                <div class="row no-gutters">
+                    <div class="col-lg-12">
+                        <div class="main-slider slider-navigation_style-1">
+                            <!-- Begin Single Slide Area -->
+                            <div class="single-slide animation-style-04 bg-7">
+                                
+                            </div>
+                            <!-- Single Slide Area End Here -->
+                            <!-- Begin Single Slide Area -->
+                            <!-- <div class="single-slide animation-style-04 bg-8">
+                                
+                            </div> -->
+                            {% for data_h in data2 %}
+                            <div class="single-slide animation-style-04 bg-88" style="background-image: url({{ data_h.image.url }})">
+                                <!-- <img class="primary-img" src="{{ data_h.image.url }}" alt="{{ data_h.message }}"> -->
+                            </div>
+                            {% endfor %}
+                            <!-- Single Slide Area End Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Begin Umino's Product Tab Area -->
+        <div class="umino-product-tab_area">
+            <div class="umino-product-tab_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product-tab">
+                                <ul class="nav product-menu">
+                                    
+                                    <li><a class="active" data-toggle="tab" href="#new-arrivals"><span>สินค้าแนะนำ</span></a></li>
+                                    <li><a data-toggle="tab" href="#best-seller"><span>สินค้าขายดี</span></a></li>
+                                    <li><a data-toggle="tab" href="#promotion"><span>สินค้าโปรโมชั่น</span></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tab-content umino-tab_content">
+                            
+                            <div id="new-arrivals" class="tab-pane active show" role="tabpanel">
+                                <div class="umino-product-tab_slider slider-navigation_style-1">
+                                    
+                                    {% for data_recommend in data3 %}
+                                    <div class="slide-item">
+                                        <div class="single-product">
+                                            <div style="width: 270px; height: 300px;">
+                                                <div class="product-img">
+                                                    <div style="width: 180px; height: 180px;">
+                                                        {% if data_recommend.slug.image.url %}
+                                                        <a href="{{ data_recommend.slug.get_url }}">
+                                                            <img class="primary-img" src="{{ data_recommend.slug.image.url }}" alt="Umino's Product Image">
+                                                        </a>
+                                                        {% endif %}
+                                                        <div class="add-actions">
+                                                            <ul>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content">
+                                                    <div style="width: 180px; height: 100px;">
+                                                        <div class="product-desc_info">
+                                                            <div class="price-box">
+                                                                <span class="new-price">{{ data_recommend.slug.netprice_mem }}</span>
+                                                                <span class="old-price">{{ data_recommend.slug.price_mem }}</span>
+                                                            </div>
+                                                            <h6 class="product-name"><a href="{{ data_recommend.slug.get_url }}">{{ data_recommend.slug.name }}</a>
+                                                            </h6>
+                                                            <div class="rating-box">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    
+                                                                        
+                                </div>
+                            </div>
+
+                            <div id="best-seller" class="tab-pane" role="tabpanel">
+                                
+                                <div class="umino-product-tab_slider slider-navigation_style-1">
+                                    
+                                    {% for data1 in datas5 %}
+                                    <div class="slide-item">
+                                        <div class="single-product">
+                                            <div style="width: 270px; height: 300px;">
+                                                <div class="product-img">
+                                                    <div style="width: 180px; height: 180px;">
+                                                        <!-- {{forloop.counter0}} -->
+                                                        
+                                                        {% if data1.product.get_url %}
+                                                        <a href="{{ data1.product.get_url }}">
+                                                            <img class="primary-img" src="{{ data1.product.image.url }}" alt="Umino's Product Image">
+                                                        </a>
+                                                        {% endif %}
+                                                        
+                                                        <div class="add-actions">
+                                                            <ul>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content">
+                                                    <div style="width: 180px; height: 100px;">
+                                                        <div class="product-desc_info">
+                                                            <div class="price-box">
+                                                                <span class="new-price">{{ data1.product.netprice_mem }}</span>
+                                                                <span class="old-price">{{ data1.product.price_mem }}</span>
+                                                            </div>
+                                                            <h6 class="product-name"><a href="{{ data.product.get_url }}">{{ data1.product.name }}</a>
+                                                            </h6>
+                                                            <div class="rating-box">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {% endfor %}
+                                </div>
+                            
+                            </div>
+
+                            <div id="promotion" class="tab-pane" role="tabpanel">
+                                <div class="umino-product-tab_slider slider-navigation_style-1">
+                                    
+                                    {% for data_promotion in data4 %}
+                                    <div class="slide-item">
+                                        <div class="single-product">
+                                            <div style="width: 270px; height: 300px;">
+                                                <div class="product-img">
+                                                    <div style="width: 180px; height: 180px;">
+                                                        {% if data_promotion.barcode.image.url %}
+                                                        <div class="ribbon-wrapperforindex ribbon-lgforindex">
+                                                            <div class="ribbon bg-info">
+                                                                {{ data_promotion.barcode.stat_promotion }}
+                                                            </div>
+                                                        </div>
+                                                        <a href="{{ data_promotion.barcode.get_url }}">
+                                                            <img class="primary-img" src="{{ data_promotion.barcode.image.url }}" alt="Umino's Product Image">
+                                                        </a>
+                                                        {% endif %}
+                                                        <div class="add-actions">
+                                                            <ul>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content">
+                                                    <div style="width: 180px; height: 100px;">
+                                                        <div class="product-desc_info">
+                                                            <div class="price-box">
+                                                                <span class="new-price">{{ data_promotion.barcode.netprice_mem }}</span>
+                                                                <span class="old-price">{{ data_promotion.barcode.price_mem }}</span>
+                                                            </div>
+                                                            <h6 class="product-name"><a href="{{ data_promotion.barcode.get_url }}">{{ data_promotion.barcode.name }}</a>
+                                                            </h6>
+                                                            <div class="rating-box">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    
+                                                                        
+                                </div>
+                            </div>                            
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Umino's Product Tab Area End Here -->
+
+        <!-- Begin Umino's Shipping Area -->
+        <div class="umino-shipping_area  section-space_add">
+            <div class="container">
+                
+            </div>
+        </div>
+        <!-- Umino's Shipping Area End Here -->
+
+    </div>
+
+
+{% endblock %}

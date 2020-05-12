@@ -1,0 +1,146 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">หน้าแรก</a></li>
+                <li class="active">สมัครสมาชิก</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<!-- Begin Umino's Login Register Area -->
+<div class="umino-login-register_area">
+    <div class="container">
+        <div class="row">
+            
+                <form id="quickForm" action="{% url 'Register' %}" method="POST">
+                {% csrf_token %}
+                    <div class="login-form">
+                        <h4 class="login-title">สมัครสมาชิก</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12 mb--20">
+                                <div class="form-group">
+                                    <label for="id_firstname">ชื่อ</label>
+                                    <input type="text" class="form-control" id="id_firstname" name="first_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 mb--20">
+                                <div class="form-group">
+                                    <label for="id_lastname">นามสกุล</label>
+                                    <input type="text" class="form-control" id="id_lastname" name="last_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 mb--20">
+                                <div class="form-group">
+                                    <label for="id_email">Email Address</label>
+                                    <input type="email" class="form-control" id="id_email" name="email">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 mb--20">
+                                <div class="form-group">
+                                    <label for="id_tel">Tel</label>
+                                    <input type="text" class="form-control" id="id_tel" name="tel">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_pass1">Password</label>
+                                    <input type="password" class="form-control" id="id_pass1" name="password1">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_pass2">Confirm Password</label>
+                                    <input type="password" class="form-control" id="id_pass2" name="password2">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="col-12">
+                                <div class="order-button-payment">
+                                    <input type="submit" class="umino-register_btn" value="Register">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</div>
+<!-- Umino's Login Register Area  End Here -->
+
+{% endblock content %}
+
+{% block jsfront %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $('#quickForm').validate({
+            rules: {
+                first_name: {
+                    required: true,
+                },
+                last_name: {
+                    required: true,
+                },
+                email:{
+                    required: true,
+                    email: true,
+                },
+                tel:{
+                    required: true,
+                },
+                password1:{
+                    required: true,                    
+                },
+                password2:{
+                    required: true,
+                    equalTo: "#id_pass1"
+                }
+            },
+            messages: {
+                first_name: {
+                    required: "กรุณาระบุ ชื่อ",
+                },
+                last_name: {
+                    required: "กรุณาระบุ นามสกุล",
+                },
+                email: {
+                    required: "กรุณาระบุ email",
+                },
+                tel: {
+                    required: "กรุณาระบุ เบอร์โทรศัพท์",
+                },
+                password1: {
+                    required: "กรุณาระบุ รหัสผ่าน",
+                },
+                password2: {
+                    required: "กรุณาระบุ รหัสผ่าน",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+{% endblock jsfront %}

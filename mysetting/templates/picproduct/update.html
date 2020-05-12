@@ -1,0 +1,127 @@
+{% extends 'backend/layout.html' %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">รูปสินค้า</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">รูปสินค้า</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="container-fluid">
+    
+    <div class="card card-default">
+        <div class="card-header">
+        <h3 class="card-title">แก้ไข - รูปสินค้า</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+        </div>
+        </div>
+        <!-- /.card-header -->
+        <form role="form" action="{% url 'updProductImg' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ productitem.name }}" placeholder="">
+                        <input type="hidden" id="productimg_id" name="productimg_id" value="{{productitem.id}}">
+                    </div>
+                    <div class="form-group">
+                        <label>สินค้า</label>
+                        <select class="form-control select2bs4" id="slug" name="slug" style="width: 100%;">
+                            <option selected="selected">.....</option>
+                            {% for 1data in data1 %}
+                            <option value="{{1data.id}}" {% if 1data == cur_product %}selected="selected"{% endif %}>{{1data.code}} - {{1data.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_InputFile">File input</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="id_InputFile" name="nm_InputFile">
+                            <label class="custom-file-label" for="id_InputFile">Choose file</label>
+                          </div>
+                        </div>
+                        {% if productitem.image %}
+                        <p>File uploaded at: <a href="{{ productitem.image.url }}" target="_blank">{{ productitem.image.url }}</a></p>
+                        {% else %}
+                        <p>File uploaded at: No File.</p>
+                        {% endif %}
+                    </div>
+                    <!-- /.form-group -->
+                    
+                <!-- /.form-group -->
+                </div>                
+                
+            </div>
+            <!-- /.row -->                    
+        </div>
+        
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
+        </div>
+        
+        </form>
+        <!-- /.card-body -->
+        
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block jspagelevel %}
+<script>
+    
+    $(document).ready(function() {
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+
+        bsCustomFileInput.init();
+        
+        $('#setgroupForm').validate({
+            rules: {
+                code: {
+                    required: true,
+                },
+                name: {
+                    required: true,
+                },
+                slug: {
+                    required: true
+                },
+            },
+            messages: {
+                code: {
+                    required: "Please enter a code",
+                },
+                name: {
+                    required: "Please enter a name",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                slug: "Please enter a slug"
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+{% endblock jspagelevel %}

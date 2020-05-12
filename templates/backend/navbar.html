@@ -1,0 +1,144 @@
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <!-- Add icons to the links using the .nav-icon class
+           with font-awesome or any other icon font library -->
+      <li class="nav-item {% if '/dashboard' in request.path %} menu-open {% endif %}">
+        <a href="{% url 'mysetting' %}" class="nav-link {% if '/dashboard' in request.path %} active {% endif %}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Dashboard
+            <span class="right badge badge-danger">Now</span>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item has-treeview {% if '/myorder/' in request.path %} menu-open {% endif %}">
+        <a href="#" class="nav-link {% if '/myorder/' in request.path %} active {% endif %}">
+          <i class="nav-icon fas fa-copy"></i>
+          <p>
+            รายการสั่งซื้อ
+            <i class="fas fa-angle-left right"></i>
+            <span class="badge badge-info right">2</span>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{% url 'myOrderall' %}" class="nav-link {% if '/myorder/myorderall' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>รายการสั่งซื้อ</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="{% url 'rp_myorder' %}" class="nav-link {% if '/myorder/report' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>รายงานสั่งซื้อ</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item has-treeview {% if '/customize/' in request.path %} menu-open {% endif %}">
+        <a href="#" class="nav-link {% if '/customize/' in request.path %} active {% endif %}">
+          <i class="nav-icon fas fa-copy"></i>
+          <p>
+            Cutomize
+            <i class="fas fa-angle-left right"></i>
+            <span class="badge badge-info right">3</span>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <!-- <li class="nav-item">
+            <a href="{% url 'mysetgroup' %}" class="nav-link {% if '/customize/setgroup' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>กลุ่มสินค้า</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'mysetsubgroup' %}" class="nav-link {% if '/customize/setsubgroup' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>sub - กลุ่มสินค้า</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'mysettypegroup' %}" class="nav-link {% if '/customize/settypegroup' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>type - กลุ่มสินค้า</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'mysetunit' %}" class="nav-link {% if '/customize/setunit' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>กำหนดหน่วยนับ</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'mysetstatus' %}" class="nav-link {% if '/customize/setstatus' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>กำหนดสถานะ</p>
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a href="{% url 'myproduct' %}" class="nav-link {% if '/customize/myproduct' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>รหัสสินค้า</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'picproduct' %}" class="nav-link {% if '/customize/picproduct' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>เพิ่มรูปสินค้า</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'ShippingPrice' %}" class="nav-link {% if '/customize/setshipping' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>กำหนดช่วงราคาจัดส่ง</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item has-treeview {% if '/pageset/' in request.path %} menu-open {% endif %}">
+        <a href="#" class="nav-link {% if '/pageset/' in request.path %} active {% endif %}">
+          <i class="nav-icon fas fa-copy"></i>
+          <p>
+            Page Setting
+            <i class="fas fa-angle-left right"></i>
+            <span class="badge badge-info right">4</span>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{% url 'pagehomeSetting' %}" class="nav-link {% if '/pageset/pagehomeSetting' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Page Home</p>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a href="{% url 'pagebestSell' %}" class="nav-link {% if '/pageset/pagebestSell' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>สินค้าขายดี</p>
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a href="{% url 'pagerecommend' %}" class="nav-link {% if '/pageset/pagerecommend' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>สินค้าแนะนำ</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'SetProducttoPromotion' %}" class="nav-link {% if '/pageset/pagepromotion2' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>สินค้าโปรโมชั่น</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'SetCondition' %}" class="nav-link {% if '/pageset/pageconditions' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>การจัดส่งสินค้า</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+    </ul>
+  </nav>

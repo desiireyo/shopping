@@ -1,0 +1,294 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">หน้าแรก</a></li>
+                <li class="active">ยืนยันการสั่งซื้อ</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<!-- Begin Umino's Checkout Area -->
+<div class="checkout-area">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                {% if request.user.is_authenticated and request.user.first_name %}
+                <form id="quickForm" action="{% url 'addOrderMember' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="checkbox-form">
+                        <h3>{{ request.user.username }} Details</h3>
+                        <div class="row">
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_fname">ชื่อ <span class="required"></span></label>
+                                    <input type="text" id="id_fname" name="fname" class="form-control" value="{{ request.user.first_name }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_lname">นามสกุล <span class="required"></span></label>
+                                    <input type="text" id="id_lname" name="lname" class="form-control" value="{{ request.user.last_name }}">
+                                </div>
+                            </div>                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_email">อีเมลล์ </label>
+                                    <input type="email" id="id_email" name="email" class="form-control" value="{{ request.user.email }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_tel">เบอร์โทรศัพท์ <span class="required"></span></label>
+                                    <input type="text" id="id_tel" name="tel" class="form-control" value="{{user.tel}}">                                    
+                                    <input type="hidden" name="username" value="{{ request.user.username }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="order-notes">
+                                    <div class="checkout-form-list checkout-form-list-2">
+                                        <label>Memo Notes</label>
+                                        <textarea id="message" name="message" cols="30" rows="10" placeholder="Notes ..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                            <div class="order-button-payment">
+                                <input value="Place order" type="submit">
+                            </div>
+                    </div>
+                </form>
+                {% else %}
+                <form id="quickForm_guest" action="{% url 'addOrderGuest' %}" name="formChkout" method="POST">
+                    {% csrf_token %}
+                    <div class="checkbox-form">
+                        <h3>Guest Details</h3>
+                        <div class="row">
+                            
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    <label for="gfname">ชื่อ </label>
+                                    <input type="text" id="gfname" class="form-control" name="fname" value="">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="glname">นามสกุล </label>
+                                    <input type="text" id="glname" class="form-control" name="lname" value="">
+                                </div>
+                            </div>                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gemail">อีเมลล์ </label>
+                                    <input type="email" id="gemail" name="email" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gtel">เบอร์โทรศัพท์ <span class="required">*</span></label>
+                                    <input type="text" id="gtel" class="form-control" name="tel" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Order Notes</label>
+                                    <textarea id="message" class="form-control" name="message" cols="30" rows="4" placeholder="Notes ..."></textarea>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                            <div class="order-button-payment">
+                                <input value="Place order" type="submit">
+                            </div>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="your-order">
+                    <h3>รายการสั่งซื้อ</h3>
+                    <div class="your-order-table table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="cart-product-name">สินค้า</th>
+                                    <th style="text-align: right;" class="cart-product-total">จำนวนเงิน</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr class="cart_item">
+                                    <td class="cart-product-name"> {{item.product.name}}<strong class="product-quantity">
+                                    × {{item.quantity}} </strong></td>
+                                    {% if item.statusBuy == 'ขาย' %}
+                                    <td class="cart-product-total" style="text-align: right;"><span class="amount">฿  {{item.sub_total|intcomma}}</span></td>                                    
+                                    {% else %}
+                                    <td class="cart-product-total" style="text-align: right;"><span class="amount">฿  0.00 </span></td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr class="cart-subtotal">
+                                    <th>จำนวนเงิน</th>
+                                    <td style="text-align: right;"><span class="amount">฿ {{total|intcomma}}</span></td>
+                                </tr>
+                                <tr class="cart-subtotal">
+                                    <th>ส่วนลด</th>
+                                    <td style="text-align: right;"><span class="amount">฿ {{discount|intcomma}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th>ค่าข่นส่ง</th>
+                                    <td style="text-align: right;"><span class="amount">฿ {{shipping|intcomma}}</span></td>
+                                </tr>
+                                <tr class="order-total">
+                                    <th>ยอดชำระทั้งหมด</th>
+                                    <td style="text-align: right;"><strong><span class="amount">฿ {{totalall|intcomma}}</span></strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-accordion">
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header" id="#payment-1">
+                                        <h5 class="panel-title">
+                                            <a href="javascript:void(0)" class="" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                โอนเงินผ่านบัญชีธนาคาร.
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                            
+                                            <div class="row">
+                                                <div class="col-4"><img src="{% static '/images/bank/logo_kbank.png' %}" width="70" alt=""></div>
+                                                <div class="col-8">
+                                                    <p style="margin: 0;">ธนาคารกสิกร</p>
+                                                    <p style="margin: 0;">ชื่อบัญชี : บริษัท xxxx จำกัด</p>
+                                                    <p style="margin: 0;">หมายเลขบัญชี : xxx-xxx-xxxxx</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Umino's Checkout Area End Here -->
+
+{% endblock %}
+
+
+{% block jsfront %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $('#quickForm').validate({
+            rules: {
+                fname: {
+                    required: true,
+                },
+                lname: {
+                    required: true,
+                },
+                email:{
+                    required: true,
+                    email: true,
+                },
+                tel:{
+                    required: true,
+                },
+            },
+            messages: {
+                fname: {
+                    required: "กรุณาระบุ ชื่อ",
+                },
+                lname: {
+                    required: "กรุณาระบุ นามสกุล",
+                },
+                email: {
+                    required: "กรุณาระบุ email",
+                },
+                tel: {
+                    required: "กรุณาระบุ เบอร์โทรศัพท์",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+
+        $('#quickForm_guest').validate({
+            rules: {
+                fname: {
+                    required: true,
+                },
+                lname: {
+                    required: true,
+                },
+                email:{
+                    required: true,
+                    email: true,
+                },
+                tel:{
+                    required: true,
+                },
+            },
+            messages: {
+                fname: {
+                    required: "กรุณาระบุ ชื่อ",
+                },
+                lname: {
+                    required: "กรุณาระบุ นามสกุล",
+                },
+                email: {
+                    required: "กรุณาระบุ email",
+                },
+                tel: {
+                    required: "กรุณาระบุ เบอร์โทรศัพท์",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+{% endblock jsfront %}

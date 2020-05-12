@@ -1,0 +1,301 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">หน้าแรก</a></li>
+                <li><a href="{% url 'shop_promotion' %}">สินค้าโปรโมชั่น</a></li>
+                {% for group in setgroups %}
+                    {% if group.get_url in request.path %}
+                    <li><a href="{{group.get_url}}">{{ group.name }}</a></li>
+                        {% for subgroup in setsubgroups %}
+                            {% if subgroup.get_url in request.path %}
+                            <li><a href="{{subgroup.get_url}}">{{ subgroup.name }}</a></li>
+                                {% for typegroup in settypegroups %}
+                                    {% if typegroup.get_url == request.path %}
+                                    <li><a href="{{typegroup.get_url}}">{{ typegroup.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<div class="umino-content_wrapper">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-lg-12">
+                        
+                        <div class="shop-toolbar">
+                            <div class="product-view-mode">
+                                <a class="active grid-4" data-target="gridview-4" data-toggle="tooltip" data-placement="top" title="Grid View"><i class="fa fa-th"></i></a>
+                                <a class="list" data-target="listview" data-toggle="tooltip" data-placement="top" title="List View"><i class="fa fa-th-list"></i></a>
+                            </div>
+                            <div class="product-page_count">
+                                <p></p>
+                            </div>
+                            <div class="product-item-selection_area">
+                                
+                            </div>
+                        </div>
+                        <div class="shop-product-wrap grid gridview-4 row">
+                            {% for product in products %}
+                            
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="slide-item">
+                                    <div class="single-product">
+                                        <div style="width: 270px; height: 430px;">
+                                        <div class="product-img">
+                                            <div style="width: 250px; height: 250px;">
+                                            {% if product.stat_promotion != '' %}
+                                            <div class="ribbon-wrapper ribbon-lg">
+                                                <div class="ribbon bg-info">
+                                                    {{ product.stat_promotion }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% if product.image %}
+                                            
+                                                <a href="{{ product.get_url }}">
+                                                    <img class="primary-img" src="{{ product.image.url }}" alt="Umino's Product Image">
+                                                </a>
+                                            {% else %}
+                                                <a href="#">
+                                                    <img class="primary-img" src="{% static 'images/product/medium-size/1-2.jpg' %}" alt="Umino's Product Image">
+                                                </a>
+                                            {% endif %}
+                                            <div class="add-actions">
+                                                <ul>
+                                                    {% if product.image %}
+                                                    <!--<li><a href="cart.html" data-toggle="tooltip" data-placement="top" title="Add To cart"><i
+                                                            class="ion-bag"></i></a>
+                                                    </li>-->
+                                                    <!-- <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="{{ product.get_url }}" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="ion-ios-search"></i></a></li> -->
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div> 
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-desc_info">
+                                                <div class="price-box">
+                                                    {% if request.user.is_authenticated %}
+                                                        {% if product.disct_mem > 0 %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_mem|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if product.disct_guest > 0 %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_guest|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <h6 class="product-name"><a href="#">{{ product.name }}</a>
+                                                </h6>
+                                                
+                                                
+                                                
+                                                    {% csrf_token %}
+                                                        <div class="quantity">
+                                                            
+                                                            <div class="btn-group mb-3" role="group" aria-label="Second group">
+                                                                <div class="cart-plus-minus">
+                                                                    <input class="cart-plus-minus-box" value="1" type="text" name="product_qty" id="product_qty{{product.id}}">
+                                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                </div>
+                                                                <div>
+                                                                    <input type="hidden" id="hd_id{{product.id}}" name="hd_id" value="{{product.id}}">
+                                                                    <button class="btn btn-outline-primary AddCartBtn" product_id="{{product.id}}">เพิ่มสินค้า</button>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="list-slide_item">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            {% if product.stat_promotion != '' %}
+                                            <div class="ribbon-wrapper ribbon-lg">
+                                                <div class="ribbon bg-info">
+                                                    {{ product.stat_promotion }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% if product.image %}
+                                            <a href="{{ product.get_url }}">
+                                                    <img class="primary-img" src="{{ product.image.url }}" alt="Umino's Product Image">
+                                            </a>
+                                            {% else %}
+                                            <a href="#"></a>
+                                                    <img class="primary-img" src="{% static 'images/product/medium-size/1-2.jpg' %}" alt="Umino's Product Image">
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="umino-product-content">
+                                            <div class="product-desc_info">
+                                                <div class="price-box">
+                                                    {% if request.user.is_authenticated %}
+                                                        {% if product.disct_mem > 0 %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_mem|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if product.disct_guest > 0 %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_guest|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <h6 class="product-name"><a href="#">{{ product.name }}</a></h6>
+                                                
+                                                <div class="product-short_desc">
+                                                    <p>{{ product.memo }}</p>
+                                                </div>
+                                                <form class="" action="{% url 'addCart' product.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                        <div class="quantity">
+                                                            <label>Quantity</label>
+                                                            <div class="btn-group mb-3" role="group" aria-label="Second group">
+                                                                <div class="cart-plus-minus">
+                                                                    <input class="cart-plus-minus-box" value="1" type="text" name="product_qty" id="product2_qty{{product.id}}">
+                                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                </div>
+                                                                <div>
+                                                                    <!--<a class="btn btn-primary" href="{% url 'addCart' product.id %}">Add To Cart</a>-->
+                                                                    <input type="submit" class="btn btn-primary" value="Add To Cart2">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="umino-paginatoin-area">
+                                    {% if products.paginator.num_pages > 1 %}
+                                    <ul class="umino-pagination-box">
+                                        {% for page_number in products.paginator.page_range %}
+                                        <li class=" {% if products.number == page_number %} active {% endif %}"><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+{% endblock %}
+
+
+{% block jsfront %}
+
+<script type="text/javascript">
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    $(document).on('submit','#fm_form1',function(e){
+        e.preventDefault();
+        console.log(e);
+
+        $.ajax({
+            type: 'GET',
+            url: '/cart/addx/',
+            data:{
+                product_qty:$('#product1_qty1').val(),
+                product_id: $('#hd_id1').val(),
+            },
+            success:function(){
+                console.log('successsss');
+            }
+        })
+    })
+
+    $('.AddCartBtn').on('click', function(){
+        var product_id = $(this).attr('product_id');
+        var product_qty = $('#product_qty'+product_id).val();
+
+        // console.log(product_id+':'+product_qty);
+        req = $.ajax({
+            type: 'GET',
+            url: '{% url "addCart3" %}',
+            data:{
+                product_qty : product_qty,
+                product_id : product_id,
+            }
+        });
+        req.done(function(data){
+            // console.log('success');
+            // console.log(data);
+            // $('#forUpdCart').load("../front_home/nav_headertoparea.html",{
+
+            // });
+            // $('#cart_totalrow').innerHTML(data.cart_totalrow);
+            // document.getElementById('cart_totalrow').innerHTML = data.cart_totalrow;
+            // $("#cart_totalrow").html(data.cart_totalrow);
+            $('#chg_cart').html(data);
+            $('#chg_cart2').html(data);
+
+            // setTimeout(alertFunc, 2000);
+            Toast.fire({
+                icon: 'success',
+                title: 'เพิ่มสินค้า เข้าตะกร้าแล้ว.'
+            });
+            
+        });
+    });
+    function alertFunc() {
+        setInterval(function(){
+                $('#forUpdCart').load("nav_headertoparea.html").fadeIn("slow")
+            }, 1000);
+    }
+    $('.swalDefaultInfo').click(function() {
+      Toast.fire({
+        icon: 'success',
+        title: 'เพิ่มสินค้า เข้าตะกร้าแล้ว'
+      })
+    });
+    
+    
+</script>
+
+{% endblock jsfront %}

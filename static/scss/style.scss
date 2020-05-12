@@ -1,0 +1,105 @@
+/******************************
+
+INDEX:
+
+    00 - Base - Typography
+    01 - Base - Variables
+    02 - Base - Mixins
+
+    03 - Utilities - Helper
+    04 - Utilities - Color
+
+    10 - Components - Button
+    11 - Components - Slider
+    12 - Components - Animation
+    13 - Components - Navigation
+    14 - Components - Banner
+    15 - Components - Product
+    16 - Components - Shipping
+    17 - Components - Form
+    18 - Components - Social Link
+    19 - Components - Product Tab
+    20 - Components - Modal
+    21 - Components - Brand
+    22 - Components - Breadcrumb
+    23 - Components - Slider Navigation
+
+    25 - Section - Header
+    26 - Section - Footer
+
+    29 - Pages - Shop
+    30 - Pages - Single Product
+    31 - Pages - Blog
+    32 - Pages - My Account
+    33 - Pages - Login | Register
+    34 - Pages - Wishlist
+    35 - Pages - Cart
+    36 - Pages - Checkout
+    37 - Pages - Compare
+    38 - Pages - Contact
+    39 - Pages - About Us
+    40 - Pages - Privacy Policy
+    41 - Pages - FAQ
+    42 - Pages - 404
+    42 - Pages - Coming Soon
+
+******************************/
+
+/*
+    Primary Color:            #fed100;
+    Body Text Color:          #333333;
+    Heading Color:            #333333;
+    Border Color:             #ebebeb;
+    Border Color 2:           #d2d2d2;
+    Body Font Family:         'Work Sans', sans-serif;
+
+*/
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900');
+
+//Base
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/typography';
+
+// Utilities
+@import 'utilities/helper';
+@import 'utilities/color';
+
+// Components
+@import 'components/button';
+@import 'components/slider';
+@import 'components/animation';
+@import 'components/navigation';
+@import 'components/brand';
+@import 'components/banner';
+@import 'components/product';
+@import 'components/shipping';
+@import 'components/form';
+@import 'components/social-link';
+@import 'components/product-tab';
+@import 'components/modal';
+@import 'components/breadcrumb';
+@import 'components/slider-navigation';
+
+// Section
+@import 'section/header';
+@import 'section/footer';
+
+// Pages
+@import 'pages/shop';
+@import 'pages/single-product';
+@import 'pages/blog';
+@import 'pages/my-account';
+@import 'pages/login-register';
+@import 'pages/wishlist';
+@import 'pages/cart';
+@import 'pages/checkout';
+@import 'pages/compare';
+@import 'pages/contact';
+@import 'pages/about-us';
+@import 'pages/privacy-policy';
+@import 'pages/faq';
+@import 'pages/404';
+@import 'pages/coming-soon';

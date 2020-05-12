@@ -1,0 +1,138 @@
+/*----------------------------------------*/
+/*  10 - Components - Button
+/*----------------------------------------*/
+
+/* ---Umino's Button Position--- */
+// Center
+.umino-btn-ps_center {
+	display: flex;
+	justify-content: center;
+	&.umino-btn-ps_left {
+		justify-content: flex-start;
+	}
+	&.umino-btn-ps_right {
+		justify-content: flex-end;
+	}
+}
+
+/* --Umino's Button-- */
+.umino-btn,
+.umino-banner_btn,
+.umino-btn-bondi_blue,
+.umino-btn_fullwidth,
+.umino-compare_btn,
+.umino-filter_btn,
+.umino-btn_dark,
+.umino-btn_red,
+.umino-btn_yellow,
+.umino-btn_limerick,
+.umino-slider_btn {
+	background-color: $primary-color;
+	color: $bg-white_color;
+	border-radius: $umino-border_radius;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0);
+	width: 150px;
+	height: 50px;
+	line-height: 50px;
+	display: block;
+	text-align: center;
+	@extend %basetransition;
+}
+
+/* ---Umino's Button With Color Variation--- */
+.umino-btn-bondi_blue {
+	background-color: $primary-color;
+	color: $bg-white_color;
+	&:hover {
+		background-color: $body-text_color;
+		color: $bg-white_color !important;
+	}
+}
+.umino-btn_dark,
+.umino-btn_yellow,
+.umino-btn_red {
+	background: $body-text_color;
+	color: $bg-white_color;
+	width: 135px;
+	height: 40px;
+	line-height: 38px;
+	font-weight: 600;
+	border: 0;
+	border-radius: 20px;
+	@include breakpoint(xx-small) {
+		width: 100px;
+		height: 30px;
+		line-height: 29px;
+		font-size: 13px;
+	}
+}
+.umino-btn_limerick {
+	background-color: $primary-color;
+	color: $bg-white_color;
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	&:hover {
+		background-color: $heading-color;
+	}
+}
+.umino-btn_red {
+	background-color: $bg-red_color;
+	&:hover {
+		background-color: $heading-color !important;
+	}
+}
+/* ---Umino's Button With Various Sizes--- */
+.umino-btn_fullwidth {
+	background-color: $dim-gray_color;
+	width: 100%;
+	color: $bg-white_color;
+	text-transform: uppercase;
+}
+// Small Size
+.umino-btn_sm {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	font-size: 13px;
+	font-weight: $body-font_weight;
+}
+/* ---Umino's Other Button--- */
+.umino-banner_btn {
+	box-shadow: 0px 1px 6.79px 0.21px rgba(0, 0, 0, 0.13);
+	height: 40px;
+	line-height: 40px;
+}
+.umino-compare_btn {
+	background: $primary-color;
+	color: $bg-white_color;
+	height: 40px;
+	line-height: 43px;
+	font-size: 14px;
+	&:hover {
+		background-color: $body-text_color;
+	}
+}
+.fb-filter-btn_area {
+	padding-top: 30px;
+	.umino-filter_btn {
+		background-color: $body-text_color;
+		color: $bg-white_color;
+		display: block;
+		width: 120px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 14px;
+		font-weight: $body-font_weight;
+		border-radius: 0;
+		&:before {
+			content: "\f00d";
+			font-family: 'Font Awesome 5 Free';
+			font-weight: 600;
+			padding-right: 10px;
+		}
+		&:hover {
+			background-color: $primary-color;
+		}
+	}
+}

@@ -1,0 +1,39 @@
+{% load static %}
+<div class="header-middle_area" >
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-2">
+                <div class="header-logo">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'images/menu/logo/logo_01.png' %}" alt="salucksil">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="contact-info">
+                    <div class="contact-info_icon">
+                        <i class="ion-android-call"></i>
+                    </div>
+                    <div class="contact-info_content">
+                        <span>Call Center</span>
+                        <a href="tel://075219643">075-219643</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block">
+                <div class="hm-form_area">
+                    <form action="{% url 'search' %}" method="GET" class="hm-searchbox">
+                        <input type="text" name="title" placeholder="Search product...">
+                        <button class="umino-search_btn" type="submit"><i class="ion-android-search"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 d-none d-lg-block">
+                <div class="hm-minicart_area" id="chg_cart">
+                    
+                    {% include 'minicart.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+{% load static %}
+{% load humanize %}
+{% block content_minicart %}
+<ul>
+    
+    <li>
+        <a href="{% url 'cartDetail' %}">
+            <div class="minicart-icon">
+                <i class="fas fa-cart-plus"></i>
+                {% if cart_totalrow %}
+                    <span class="item-count">{{ cart_totalrow }}</span>
+                {% else %}
+                    <span class="item-count">0</span>
+                {% endif %}
+            </div>
+            <div class="minicart-title">
+                <span class="item_total">฿{{total|intcomma}}</span>
+            </div>
+        </a>
+        <ul class="minicart-body">
+            {% for item in cart_items %}
+            <li class="minicart-item_area">
+                <div class="minicart-single_item">
+                    
+                    <div class="minicart-img">
+                        <a href="#">
+                            <img src="{{ item.product.image.url }}" alt="Umino's Product Image" >
+                        </a>
+                    </div>
+                    <div class="minicart-content">
+                        <div class="product-name">
+                            <h6>
+                                <a href="#">
+                                    {{item.product.name}}
+                                </a>
+                            </h6>
+                        </div>
+                        <span class="product-quantity">จำนวน : {{item.quantity}}</span>
+                        <div class="price-box">
+                            {% if request.user.is_authenticated %}
+                                <span class="new-price">฿{{item.product.netprice_mem|intcomma}}</span>
+                            {% else %}
+                                <span class="new-price">฿{{item.product.netprice_guest|intcomma}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            <li>
+                <div class="price_content">
+                    <div class="cart-subtotals">
+                        <div class="cart-total subtotal-list">
+                            <span class="label">ค่าจัดส่ง</span>
+                            <span class="value">฿{{shipping|intcomma}}</span>
+                        </div>
+                        <div class="cart-total subtotal-list">
+                            <span class="label">Total</span>
+                            <span class="value">฿{{totalall|intcomma}}</span>
+                        </div>
+                    </div>
+                    <div class="minicart-button">
+                        <a class="umino-btn umino-btn_fullwidth" href="{% url 'cartDetail' %}">Cart</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
+{% endblock content_minicart %}

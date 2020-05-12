@@ -1,0 +1,93 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">หน้าแรก</a></li>
+                <li class="active">เข้าสู่ระบบ & สมัครสมาชิก</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<!-- Begin Umino's Login Register Area -->
+<div class="umino-login-register_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                        <!-- Login Form s-->
+                        <form method="POST" id="quickForm">
+                        {% csrf_token %}
+                            <div class="login-form">
+                                <h4 class="login-title">Login</h4>
+                                <div class="row">
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group"> 
+                                            <label for="id_username">Email Address*</label>
+                                            <input type="text" id="id_username" class="form-control" placeholder="Email Address" name="username">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="id_password">Password*</label>
+                                            <input type="password" id="id_password" class="form-control" placeholder="Password" name="password">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="order-button-payment">
+                                            <input type="submit" class="umino-login_btn" value="Login">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+            </div>      
+        </div>
+    </div>
+</div>
+
+<!-- Umino's Login Register Area  End Here -->
+
+{% endblock %}
+
+{% block jsfront %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        
+        $('#quickForm').validate({
+            rules: {
+                username: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                },
+            },
+            messages: {
+                username: {
+                    required: "กรุณาระบุ username/email",
+                },
+                password: {
+                    required: "กรุณาระบุ password",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
+{% endblock jsfront %}

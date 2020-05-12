@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>code</th>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subgroup in subgroups %}
+        <tr>
+            <td><a href="" data-url="{% url 'vwSettypegroup' %}?subgroup={{ subgroup.id }}" data-subgroup="{{ subgroup.id }}" class="subgroup" >{{ subgroup.code }}</a></td>
+            <td>{{ subgroup.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

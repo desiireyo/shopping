@@ -1,0 +1,251 @@
+/*----------------------------------------*/
+/*  39 - Pages - About Us
+/*----------------------------------------*/
+.main-content_area {
+	padding: 55px 0 60px;
+	.about-us_info {
+		.about-us_content {
+			text-align: center;
+			border-bottom: 1px solid $border-color;
+			padding: 20px 0 30px;
+			> h3 {
+				&.heading {
+					line-height: 40px;
+					margin: 0 auto;
+					max-width: 75%;
+					@include breakpoint (max-medium) {
+						max-width: 100%;
+						line-height: 1.5;
+						font-size: 20px;
+					}
+					@include breakpoint (xx-small) {
+						font-size: 16px;
+						font-weight: 700;
+					}
+				}
+			}
+			> p {
+				&.short-desc {
+					max-width: 73%;
+					margin: 0 auto;
+					padding-top: 10px;
+					@include breakpoint (max-medium) {
+						max-width: 100%;
+					}
+				}
+			}
+			.aurhor-signature {
+				padding-top: 25px;
+			}
+		}
+	}
+	.team-member_area {
+		padding: 60px 0 55px;
+		border-bottom: 1px solid $border-color;
+		.team-member_info {
+			text-align: center;
+			.content {
+				.icon {
+					padding-bottom: 25px;
+				}
+				> h3 {
+					&.title {
+						margin-bottom: 0;
+						font-size: 19px;
+						padding-bottom: 10px;
+					}
+				}
+				> p {
+					&.short-desc {
+						margin: 0 auto;
+						max-width: 95%;
+						padding-bottom: 25px;
+					}
+				}
+			}
+			.additional-content {
+				> h3 {
+					&.heading {
+						margin: 0 auto;
+						padding-top: 25px;
+						font-size: 19px;
+					}
+				}
+				> p {
+					&.short-desc {
+						margin-bottom: 0;
+						padding-top: 10px;
+					}
+				}
+			}
+		}
+		[class*="col-"] {
+			&:nth-child(n + 2) {
+				@include breakpoint (max-medium) {
+					.team-member_info {
+						padding-top: 55px;
+					}
+				}
+			}
+		}
+	}
+	.accordion-with-testimonials_area {
+		padding-top: 55px;
+		.umino-section_title {
+			> h3 {
+				@include breakpoint (xx-small) {
+					font-size: 26px;
+				}
+			}
+		}
+		.accordion-area {
+			.umino-section_title {
+				margin-bottom: 25px;
+			}
+			> p {
+				&.short-desc {
+					margin: 0 auto;
+					text-align: center;
+				}
+			}
+			.about-us_accordion {
+				padding-top: 20px;
+				#accordion {
+					.card {
+						border: 0;
+						border-radius: 0;
+						.card-header {
+							border: 0;
+							margin-top: 15px;
+							@extend %basetransition;
+							> h5 {
+								> a {
+									font-size: 17px;
+									> i {
+										color: $body-text_color;
+										position: absolute;
+										right: 20px;
+										font-size: 14px;
+										width: 20px;
+										height: 20px;
+										line-height: 22px;
+										text-align: center;
+										border-radius: 100%;
+									}
+								}
+							}
+							&:hover {
+								background-color: $primary-color;
+								> h5 {
+									> a {
+										color: $bg-white_color;
+										> i {
+											background-color: $bg-white_color;
+											color: $primary-color;
+										}
+										&:hover {
+											color: $bg-white_color !important;
+										}
+									}
+								}
+							}
+						}
+						&.actives {
+							.card-header {
+								background-color: $primary-color;
+								> h5 {
+									> a {
+										color: $bg-white_color;
+										> i {
+											background-color: $bg-white_color;
+											color: $primary-color;
+											width: 20px;
+											height: 20px;
+											line-height: 22px;
+											text-align: center;
+											font-size: 14px;
+											border-radius: 100%;
+										}
+										&:hover {
+											color: $bg-white_color !important;
+										}
+									}
+								}
+							}
+						}
+					}
+					.card-body {
+						border: 1px solid $border-color;
+						border-top: 0;
+						> h3 {
+							&.heading {
+								margin-bottom: 0;
+								font-size: 15px;
+							}
+						}
+						> p {
+							&.short-desc {
+								padding-top: 15px;
+								margin-bottom: 0;
+							}
+						}
+						> p {
+							&.additional-desc {
+								padding-top: 15px;
+								margin-bottom: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+		.testimonials-area {
+			@include breakpoint (max-medium) {
+				padding-top: 25px;
+			}
+			.testimonial-slider {
+				.single-item {
+					text-align: center;
+					.testimonial-img {
+						display: flex;
+						justify-content: center;
+						> a {
+							img {
+								border-radius: 100%;
+								border: 10px solid $border-color;
+							}
+						}
+					}
+					> .author-info {
+						> span {
+							display: block;
+							&.name {
+								color: $primary-color;
+								padding-top: 20px;
+								text-transform: uppercase;
+							}
+							&.occupation {
+								padding-top: 5px;
+							}
+						}
+						.icon {
+							display: flex;
+							justify-content: center;
+							padding-top: 10px;
+						}
+						> p {
+							&.short-desc {
+								margin: 0 auto;
+								padding-top: 25px;
+							}
+						}
+					}
+				}
+				@include umi-slick_dots;
+				.slick-dots {
+					bottom: -40px;
+				}
+			}
+		}
+	}
+}

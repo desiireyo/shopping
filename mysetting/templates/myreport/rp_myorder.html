@@ -1,0 +1,274 @@
+{% extends 'backend/layout.html' %}
+{% load static %}
+
+{% block title %}
+	รายงานสั่งซื้อ
+{% endblock title %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">รายงานสั่งซื้อ</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">รายงานสั่งซื้อ</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+  <div class="card card-widget card-success">
+    <div class="card-header">
+        <h3 class="card-title">รายงานสั่งซื้อ</h3>
+        <div class="card-tools">
+          
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+          </button>
+          
+        </div>
+    </div>
+    
+<!-- /.card-header -->
+	
+    <div class="card-body collapse show" id="collapseExample">
+        
+            <form method="GET">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <label>สมาชิก/บุคคลทั่วไป</label>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="customCheckbox1" name="for_all" {% if for_all == '2' %} checked {% endif %} value="2">
+                        <label for="customCheckbox1" class="custom-control-label">เฉพาะสมาชิก</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="customCheckbox2" name="for_all" {% if for_all == '1' %} checked {% endif %} value="1">
+                        <label for="customCheckbox2" class="custom-control-label">เฉพาะบุคคลทั่วไป</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="customCheckbox3" name="for_all" {% if for_all == '0' %} checked {% endif %} value="0">
+                        <label for="customCheckbox3" class="custom-control-label">ทั้งหมด</label>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="col-sm-3">
+                    <!-- checkbox -->
+                    <div class="form-group">
+                        <label>สถานะ</label>
+                        <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="chk_confirm1" name="allstat" {% if allstat == '2' %} checked {% endif %} value="2">
+                        <label for="chk_confirm1" class="custom-control-label">รอการยืนยัน</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="chk_confirm2" name="allstat" {% if allstat == '1' %} checked {% endif %} value="1">
+                        <label for="chk_confirm2" class="custom-control-label">ยืนยันแล้ว</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="chk_confirm3" name="allstat" {% if allstat == '0' %} checked {% endif %} value="0" >
+                        <label for="chk_confirm3" class="custom-control-label">ทั้งหมด</label>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <!-- radio -->
+                    <label>ช่วงวันที่</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control float-right" id="id_date1" name="date1" value="{{date1}}" autocomplete="off">
+                          </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <!-- radio -->
+                    <label>ช่วงวันที่</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control float-right" id="id_date2" name="date2" value="{{date2}}" autocomplete="off">
+                          </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                      <label for="id_submit">&nbsp;</label>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+					  <!-- <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick='window.print()'>Print</button> -->
+                      
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="id_name">ชื่อลูกค้า</label>
+                            <input type="text" class="form-control" id="id_name" name="name" placeholder="" value="{{name}}">
+                            
+                        </div>
+                    </div>
+                </div>
+              </form>
+        
+    </div>
+	
+</div>
+</div>
+<div class="container-fluid">
+<!-- <button type="button" class="btn btn-success" onclick='printElement()'>Print</button> -->
+<div id="printSection">
+<table id="dataOrdermember" class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th class="text-center">วันที่สั่งสินค้า</th>
+      <th class="text-center">ผู้สั่งสินค้า</th>
+      <th class="text-center">เบอร์โทร</th>
+      <th class="text-center">ยอดสั่งซื้อ</th>
+      <th class="text-center">สถานะ</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in queryset %}
+    <tr>
+      <td>{{data.created|date:"d/m/Y"}}</td>
+      <td align="left">{{data.fname}} {{data.lname}}</td>
+      <td>{{data.tel}}</td>
+      <td>{{data.total}}</td>
+      <td>{% if data.flag %} ยืนยันการสั่งซื้อ {% else %} รอการยืนยัน {% endif %}</td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+{% endblock content %}
+
+{% block modal %}
+
+<div class="modal fade" id="modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">รายงานสั่งซื้อ</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="card card-widget">
+          <div class="card-header">
+            <div class="user-block">
+            </div>
+            <!-- /.user-block -->
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
+                <i class="far fa-circle"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+              </button>
+            </div>
+            <!-- /.card-tools -->
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">            
+            
+            
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer card-comments">
+            <div class="card-comment">
+              <!-- User image -->
+              
+              <div class="comment-text">
+                
+              </div>
+              <!-- /.comment-text -->
+            </div>
+            <!-- /.card-comment -->
+            <div class="card-comment">
+              
+              <div class="comment-text">
+                
+              </div>
+              <!-- /.comment-text -->
+            </div>
+            <!-- /.card-comment -->
+          </div>
+          <!-- /.card-footer -->
+          <div class="card-footer">
+            <form action="#" method="post">
+              
+            </form>
+          </div>
+          <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+        
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+{% endblock modal %}
+
+{% block jspagelevel %}
+<script>
+
+			
+    $(document).ready(function() {
+        
+        $('#id_date1').datepicker({
+            format: 'yyyy-mm-dd',
+            todayBtn: "linked",
+            todayHighlight: true,
+            autoclose: true,
+        });
+        $('#id_date2').datepicker({
+            format: 'yyyy-mm-dd',
+            todayBtn: "linked",
+            todayHighlight: true,
+            autoclose: true,
+        });
+		$('#dataOrdermember').DataTable({
+		  
+		  "dom": 'Bfrtip',
+		  buttons: [
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-secondary btn-sm mr-1',
+                        
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-secondary btn-sm mr-1',
+                        
+                    },
+			]
+		});
+		
+        
+    });
+</script>
+{% endblock jspagelevel %}

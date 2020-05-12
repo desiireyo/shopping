@@ -1,0 +1,30 @@
+<div class="header-top_area" style="background-color:#0066CC"> <!-- FF6200 -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-5">
+                <div class="ht-left_area">
+                    <div class="header-shipping_area">
+                        <span><h2>ร้านสลักศิลป์ฟู้ดส์ช็อป</h2></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7">
+                <div class="ht-right_area">
+                    <div class="ht-menu">
+                        <ul>
+                            {% if request.user.is_authenticated and request.user.first_name %}
+                            <li><a href="{% url 'orderHistory' %}" class="yotopmenu"><h6>ประวัติการสั่งซื้อ</h6></a></li>
+                            <li><a href="{% url 'cartDetail' %}" class="yotopmenu"><h6>ตะกร้าสินค้า</h6></a></li>
+                                {% if request.user.is_authenticated and request.user.is_superuser %}
+                            <li><a href="{% url 'mysetting' %}" class="yotopmenu" target ="_blank"><h6>Customize</h6></a></li>
+                                {% endif %}
+                            {% else %}
+                            <li><a href="{% url 'cartDetail' %}" class="yotopmenu"><h6>ตะกร้าสินค้า</h6></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

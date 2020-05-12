@@ -1,0 +1,349 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">หน้าแรก</a></li>
+                <li><a href="{% url 'shop' %}">สั่งซื้อออนไลน์</a></li>
+                {% for group in setgroups %}
+                    {% if group.get_url in request.path %}
+                    <li><a href="{{group.get_url}}">{{ group.name }}</a></li>
+                        {% for subgroup in setsubgroups %}
+                            {% if subgroup.get_url in request.path %}
+                            <li><a href="{{subgroup.get_url}}">{{ subgroup.name }}</a></li>
+                                {% for typegroup in settypegroups %}
+                                    {% if typegroup.get_url == request.path %}
+                                    <li><a href="{{typegroup.get_url}}">{{ typegroup.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<div class="umino-content_wrapper">
+            <div class="container">
+                <div class="row">
+                    <!-- <div class="col-lg-3 order-2 order-lg-1">
+                        <div class="umino-sidebar-catagories_area">
+                            
+                            <div class="umino-sidebar_categories category-module">
+                                <div class="umino-categories_title">
+                                    <h5>Product Categories</h5>
+                                </div>
+                                <div class="sidebar-categories_menu">
+                                    <ul class="floor1">
+                                    {% for group in setgroups %}
+                                        <li class="has-sub"><a href="{{group.get_url}}" class="floor1link">{{ group.name }}<i class="ion-chevron-right"></i></a>
+                                            <ul class="floor2">
+                                            {% for subgroup in setsubgroups %}
+                                                {% if group.id == subgroup.group_id %}
+                                                    <li class="has-sub"><a href="{{subgroup.get_url}}" class="floor2link">{{ subgroup.name }}<i class="ion-chevron-right"></i></a>
+                                                        <ul class="floor3">
+                                                            {% for typegroup in settypegroups %}
+                                                            {% if subgroup.id == typegroup.subgroup_id %}
+                                                            <li><a href="{{typegroup.get_url}}" class="floor1link">{{typegroup.name}}</a></li>
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="umino-sidebar_categories">
+                                <div class="umino-categories_title umino-tags_title">
+                                    <h5>Product Tags</h5>
+                                </div>
+                                <ul class="umino-tags_list">
+                                    {% for subgroup in setsubgroups %}
+                                    <li><a href="{{subgroup.get_url}}">{{ subgroup.name }}</a></li>
+                                    {% endfor %}
+                                    {% for group in setgroups %}
+                                    <li><a href="{{group.get_url}}">{{ group.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-12">
+                        <!--<div class="shop-banner_area">
+                            <div class="banner-item img-hover_effect">
+                                <a href="javascript:void(0)">
+                                    <img src="{% static 'images/shop/1.jpg' %}" alt="Umino's Shop Banner">
+                                </a>
+                            </div>
+                        </div>-->
+                        <div class="shop-toolbar">
+                            <div class="product-view-mode">
+                                <a class="active grid-4" data-target="gridview-4" data-toggle="tooltip" data-placement="top" title="Grid View"><i class="fa fa-th"></i></a>
+                                <a class="list" data-target="listview" data-toggle="tooltip" data-placement="top" title="List View"><i class="fa fa-th-list"></i></a>
+                            </div>
+                            <div class="product-page_count">
+                                <p></p>
+                            </div>
+                            <div class="product-item-selection_area">
+                                <!-- <div class="product-short">
+                                    <label class="select-label">Short By:</label>
+                                    <select class="nice-select">
+                                        <option value="1">Default sorting</option>
+                                        <option value="2">Name, A to Z</option>
+                                        <option value="3">Name, Z to A</option>
+                                        <option value="4">Price, low to high</option>
+                                        <option value="5">Price, high to low</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="shop-product-wrap grid gridview-4 row">
+                            {% for product in products %}
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="slide-item">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            {% if product.stat_promotion != '' %}
+                                            <div class="ribbon-wrapper ribbon-lg">
+                                                <div class="ribbon bg-info">
+                                                    {{ product.stat_promotion }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% if product.image %}
+                                            
+                                                <a href="{{ product.get_url }}">
+                                                    <img class="primary-img" src="{{ product.image.url }}" alt="Umino's Product Image">
+                                                </a>
+                                            {% else %}
+                                                <a href="#">
+                                                    <img class="primary-img" src="{% static 'images/product/medium-size/1-2.jpg' %}" alt="Umino's Product Image">
+                                                </a>
+                                            {% endif %}
+                                            <div class="add-actions">
+                                                <ul>
+                                                    {% if product.image %}
+                                                    <!--<li><a href="cart.html" data-toggle="tooltip" data-placement="top" title="Add To cart"><i
+                                                            class="ion-bag"></i></a>
+                                                    </li>-->
+                                                    <!-- <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="{{ product.get_url }}" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="ion-ios-search"></i></a></li> -->
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-desc_info">
+                                                <div class="price-box">
+                                                    {% if request.user.is_authenticated %}
+                                                        {% if product.disct_mem > 0 %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_mem|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if product.disct_guest > 0 %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_guest|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <h6 class="product-name"><a href="#">{{ product.name }}</a>
+                                                </h6>
+                                                
+                                                
+                                                <form class="" action="{% url 'addCart' product.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                        <div class="quantity">
+                                                            
+                                                            <div class="btn-group mb-3" role="group" aria-label="Second group">
+                                                                <div class="cart-plus-minus">
+                                                                    <input class="cart-plus-minus-box" value="1" type="text" name="product_qty" id="product1_qty{{product.id}}">
+                                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                </div>
+                                                                <div>
+                                                                    
+                                                                    <input type="submit" class="btn btn-primary" value="Add To Cart">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </form>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-slide_item">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            {% if product.image %}
+                                            <a href="{{ product.get_url }}">
+                                                    <img class="primary-img" src="{{ product.image.url }}" alt="Umino's Product Image">
+                                            </a>
+                                            {% else %}
+                                            <a href="#"></a>
+                                                    <img class="primary-img" src="{% static 'images/product/medium-size/1-2.jpg' %}" alt="Umino's Product Image">
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="umino-product-content">
+                                            <div class="product-desc_info">
+                                                <div class="price-box">
+                                                    {% if request.user.is_authenticated %}
+                                                        {% if product.disct_mem > 0 %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_mem|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_mem|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if product.disct_guest > 0 %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        <span class="old-price">{{ product.price_guest|intcomma }}</span>
+                                                        {% else %}
+                                                        <span class="new-price">{{ product.netprice_guest|intcomma }}</span>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                                <h6 class="product-name"><a href="#">{{ product.name }}</a></h6>
+                                                <!--
+                                                <div class="rating-box">
+                                                    <ul>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li><i class="ion-ios-star"></i></li>
+                                                        <li class="silver-color"><i class="ion-ios-star-outline"></i></li>
+                                                    </ul>
+                                                </div>
+                                                -->
+                                                <div class="product-short_desc">
+                                                    <p>{{ product.memo }}</p>
+                                                </div>
+                                                <form class="" action="{% url 'addCart' product.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                        <div class="quantity">
+                                                            <label>Quantity</label>
+                                                            <div class="btn-group mb-3" role="group" aria-label="Second group">
+                                                                <div class="cart-plus-minus">
+                                                                    <input class="cart-plus-minus-box" value="1" type="text" name="product_qty" id="product2_qty{{product.id}}">
+                                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                </div>
+                                                                <div>
+                                                                    <!--<a class="btn btn-primary" href="{% url 'addCart' product.id %}">Add To Cart</a>-->
+                                                                    <input type="submit" class="btn btn-primary" value="Add To Cart2">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </form>
+                                            </div>
+                                            <!--
+                                            <div class="add-actions">
+                                                <ul>
+                                                    <li><a href="cart.html" data-toggle="tooltip" data-placement="top" title="Add To cart"><i
+                                                            class="ion-bag"></i></a>
+                                                    </li>
+                                                    <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="ion-ios-search"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            -->
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="umino-paginatoin-area">
+                                    {% if products.paginator.num_pages > 1 %}
+                                    <ul class="umino-pagination-box">
+                                        {% for page_number in products.paginator.page_range %}
+                                        <li class=" {% if products.number == page_number %} active {% endif %}"><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Umino's Content Wrapper Area End Here -->
+
+
+        <!-- <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    อาหารสด
+                  </a>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="card">
+                            <div class="card-header">
+                                <a data-toggle="collapse" href="#level2_1" role="button" aria-expanded="false" aria-controls="level2_1">
+                                    ผัก
+                                  </a>
+                            </div>
+                            <div class="collapse" id="level2_1">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">ผักสด</li>
+                                    <li class="list-group-item">ผักตัดแต่ง</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="card">
+                            <div class="card-header">
+                                <a data-toggle="collapse" href="#level2" role="button" aria-expanded="false" aria-controls="level2">
+                                    เนื้อสัตว์
+                                  </a>
+                            </div>
+                            <div class="collapse" id="level2">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">ไก่</li>
+                                    <li class="list-group-item">หมู</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    
+                </ul>
+                
+            </div>
+            <div class="card-header">
+                <a data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                    อาหารแห้ง
+                  </a>
+            </div>
+            <div class="collapse" id="collapseExample2">
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div> -->
+        
+{% endblock %}
+

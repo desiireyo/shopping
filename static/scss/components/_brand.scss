@@ -1,0 +1,28 @@
+/*----------------------------------------*/
+/*  21 - Components - Brand
+/*----------------------------------------*/
+.umino-brand_area {
+	padding-bottom: 60px;
+	.umino-brand_nav {
+		border: 1px solid $border-color;
+		padding: 30px 0;
+		.umino-brand_slider {
+			overflow: hidden;
+			.slide-item {
+				> a {
+					> img {
+						transform: scale(1);
+						@extend %basetransition;
+					}
+				}
+				&:hover {
+					> a {
+						> img {
+							transform: scale(1.1);
+						}
+					}
+				}
+			}
+		}
+	}
+}

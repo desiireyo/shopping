@@ -1,0 +1,4 @@
+<option selected="selected">.....</option>
+{% for subgroup in subgroups %}
+<option value="{{subgroup.id}}">{{subgroup.code}} - {{subgroup.name}}</option>
+{% endfor %}

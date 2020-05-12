@@ -1,0 +1,51 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">Orders History</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="umino-wishlist_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="javascript:void(0)">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>                                    
+                                    <th class="umino-product-thumbnail">#</th>
+                                    <th class="cart-product-name">วันสั่งซื้อ</th>
+                                    <th class="umino-product-price">ยอดชำระ</th>
+                                    <th class="umino-cart_btn">Print</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in orders %}
+                                <tr>                                    
+                                    <td class="umino-product-thumbnail">{{item.id}}</td>
+                                    <td class="umino-product-name">{{item.created|date:"d M Y"}}</td>
+                                    <td class="umino-product-price"><span class="amount">฿ {{item.total|intcomma}}</span></td>
+                                    <td class="umino-cart_btn"><a href="{% url 'viewOrder' item.id %}">Print</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

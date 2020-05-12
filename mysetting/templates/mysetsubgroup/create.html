@@ -1,0 +1,47 @@
+{% extends 'backend/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content_head %}
+<h1 class="m-0 text-dark">sub-กลุ่มสินค้า</h1>
+
+{% endblock content_head %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'mysetting' %}">Home</a></li>
+<li class="breadcrumb-item active">sub-กลุ่มสินค้า</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            {% if form_setsubgroup.code.value is None %}
+                <span class="text-success"><i class="fas fa-plus"></i> เพิ่มข้อมูล</span>
+            {% else %}
+                <span class="text-primary"><i class="far fa-edit"></i> แก้ไขข้อมูล</span> 
+            {% endif %}
+        </h3>
+        <div class="card-tools">
+            <a href="{% url 'mysetsubgroup' %}" class="btn btn-block btn-outline-primary btn-sm"><i class="fas fa-backward"></i> ย้อนกลับ</a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form_setsubgroup|crispy }}
+                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-save"></i> Save</button>
+            </form>
+    </div>    
+</div>
+
+{% endblock %}
+
+{% block jspagelevel %}
+<script>
+    $(document).ready(function() {
+        $('#id_group').select2({});
+    });
+</script>
+{% endblock jspagelevel %}

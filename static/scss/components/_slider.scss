@@ -1,0 +1,484 @@
+/*----------------------------------------*/
+/*  11 - Components - Slider
+/*----------------------------------------*/
+/* ---Umino's Slider Area--- */
+.umino-slider_area {
+	background-color: $bg-snow_color;
+	padding: 30px 0;
+	.main-slider {
+		overflow: hidden;
+		.slider-content {
+			width: 100%;
+			top: 20%;
+			left: 50%;
+			transform: translateX(-50%);
+			position: absolute;
+			text-align: center;
+			z-index: 8;
+			> h4 {
+				font-size: 46px;
+				font-weight: 300;
+				text-transform: uppercase;
+				margin-bottom: 0;
+				padding-bottom: 5px;
+				@include breakpoint (max-x_small) {
+					font-size: 30px;
+				}
+			}
+			> h3 {
+				font-size: 46px;
+				text-transform: uppercase;
+				margin-bottom: 0;
+				padding-bottom: 25px;
+				@include breakpoint(normal) {
+					font-size: 40px;
+				}
+				@include breakpoint (max-x_small) {
+					font-size: 28px;
+				}
+			}
+			> a {
+				> span {
+					color: $fire-engine-red_color;
+					font-size: 28px;
+					font-weight: 600;
+				}
+			}
+			&.slider-content-2 {
+				top: 15%;
+			}
+		}
+		&.slider-navigation_style-1 {
+			.slick-arrow {
+				display: none !important;
+			}
+		}
+	}
+	.banner-item {
+		position: relative;
+		.banner-content {
+			position: absolute;
+			top: 30px;
+			left: 30px;
+			z-index: 1;
+			> span {
+				color: $grey-color;
+				display: block;
+				padding-bottom: 5px;
+			}
+			> h4,
+			h3 {
+				font-size: 16px;
+				font-weight: 600;
+				margin-bottom: 0;
+			}
+			> h4 {
+				padding-bottom: 5px;
+			}
+			> a {
+				display: block;
+				padding-top: 10px;
+				> i {
+					color: $primary-color;
+					font-size: 24px;
+				}
+			}
+		}
+	}
+	.sub-banner_wrap {
+		@include breakpoint(max-medium) {
+			margin-top: 30px;
+		}
+		[class*="col-"] {
+			&:first-child {
+				.banner-item {
+					@include breakpoint(max-small) {
+						margin-top: 30px;
+					}
+				}
+			}
+		}
+	}
+	.sub-banner_wrap-2 {
+		[class*="col-"] {
+			&:first-child {
+				.banner-item {
+					margin-bottom: 30px;
+				}
+			}
+		}
+	}
+}
+
+/* ---Umino's Slider Area Two--- */
+.umino-slider_area-2 {
+	background-color: $bg-white_color;
+	padding: 0;
+	.main-slider {
+		.slider-content {
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+			max-width: 49%;
+			@include breakpoint(max-small) {
+				display: none;
+			}
+			> h4,
+			h5 {
+				color: $bg-white_color;
+				text-transform: capitalize;
+				margin-bottom: 0;
+			}
+			> h4 {
+				font-size: 46px;
+				padding-bottom: 20px;
+			}
+			> h5 {
+				font-size: 28px;
+			}
+		}
+		.additional-slider_content {
+			top: 50%;
+			left: auto;
+			right: 0;
+			transform: translateY(-50%);
+			max-width: 30%;
+			text-align: left;
+			@include breakpoint(max-normal) {
+				max-width: 35%;
+			}
+			@include breakpoint(max-small) {
+				display: block;
+				max-width: 100%;
+				text-align: center;
+			}
+			> span {
+				color: $primary-color;
+				font-size: 20px;
+				text-transform: uppercase;
+				font-weight: 600;
+				padding-bottom: 10px;
+				display: block;
+				@include breakpoint(max-normal) {
+					font-size: 17px;
+				}
+			}
+			> h2,
+			h3 {
+				color: $bg-white_color;
+				text-transform: capitalize;
+				font-size: 46px;
+				margin-bottom: 0;
+				@include breakpoint (large) {
+					font-size: 35px;
+				}
+				@include breakpoint(max-normal) {
+					font-size: 30px;
+				}
+			}
+			> h2 {
+				padding-bottom: 10px;
+			}
+			> .umino-btn-ps_left {
+				@include breakpoint(max-small) {
+					display: flex;
+					justify-content: center;
+				}
+				.umino-slider_btn {
+					background-color: transparent;
+					border: 1px solid $bg-white_color;
+					border-radius: 30px;
+					width: 230px;
+					height: 55px;
+					line-height: 53px;
+					font-size: 20px;
+					text-transform: uppercase;
+					@include breakpoint(max-small) {
+						width: 150px;
+						height: 40px;
+						line-height: 38px;
+						font-size: 16px;
+					}
+					&:hover {
+						background-color: $primary-color;
+						border-color: $primary-color;
+						color: $bg-white_color !important;
+					}
+				}
+			}
+		}
+		&.slider-navigation_style-1 {
+			.slick-arrow {
+				display: block !important;
+				@include breakpoint(max-small) {
+					display: none !important;
+				}
+			}
+		}
+		.slick-dots {
+			display: none !important;
+			@include breakpoint(max-small) {
+				display: block !important;
+			}
+		}
+	}
+}
+
+/* ---Umino's Slider Area Three--- */
+.umino-slider_area-3 {
+	background-color: $bg-white_color;
+	padding-bottom: 0;
+	.main-slider {
+		.slider-content {
+			text-align: left;
+			top: 50%;
+			left: 6%;
+			transform: translateY(-50%);
+			width: auto;
+			> h4,
+			h3,
+			span {
+				color: $bg-snow_color;
+				font-weight: 600;
+			}
+			> h4 {
+				font-size: 19px;
+				padding-bottom: 10px;
+			}
+			> h3 {
+				font-size: 37px;
+				padding-bottom: 15px;
+				@include breakpoint(xx-small) {
+					font-size: 28px;
+				}
+			}
+			> span {
+				font-size: 21px;
+				padding-bottom: 25px;
+				display: block;
+				@include breakpoint(xx-small) {
+					font-size: 18px;
+				}
+			}
+			.umino-btn-ps_left {
+				.umino-slider_btn {
+					height: 35px;
+					line-height: 35px;
+					border-radius: 25px;
+					&:hover {
+						background-color: $heading-color;
+						color: $bg-white_color !important;
+					}
+				}
+			}
+		}
+		.slick-dots {
+			li {
+				background: $bg-white_color;
+				&.slick-active {
+					background-color: $bg-silver_color;
+				}
+				&:hover {
+					background-color: $bg-silver_color;
+				}
+			}
+		}
+	}
+	.umi-custom_offset {
+		@include breakpoint(small) {
+			margin-left: 25%;
+		}
+	}
+	.banner-item {
+		@include breakpoint(max-small) {
+			margin-top: 30px;
+		}
+		.banner-content {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			width: 75%;
+			> span,
+			h4,
+			h3 {
+				color: $bg-white_color;
+			}
+			> span {
+				color: $primary-color;
+				letter-spacing: 0.4px;
+				display: block;
+				padding-bottom: 20px;
+			}
+			> h4,
+			h3 {
+				font-size: 20px;
+			}
+			> h3 {
+				padding-bottom: 25px;
+				@include breakpoint(normal) {
+					font-size: 17px;
+				}
+			}
+		}
+	}
+	.slick-dots {
+		bottom: 25px !important;
+	}
+}
+
+/* ---Umino's Slider Area Four--- */
+.umino-slider_area-4 {
+	padding: 0;
+	.container-fluid {
+		padding: 0;
+		overflow: hidden;
+	}
+	.main-slider {
+		.slider-content {
+			top: 50%;
+			left: auto;
+			max-width: 27%;
+			transform: translate(0, -50%);
+			text-align: left;
+			@include breakpoint(large) {
+				max-width: 40%;
+			}
+			@include breakpoint(max-normal) {
+				max-width: 50%;
+			}
+			@include breakpoint(max-small) {
+				max-width: 75%;
+			}
+			@include breakpoint(max-x_small) {
+				max-width: 85%;
+			}
+			> h4,
+			h3 {
+				font-weight: 400;
+			}
+			> h4 {
+				@include breakpoint(max-medium) {
+					font-size: 30px;
+				}
+				@include breakpoint(xx-small) {
+					font-size: 25px;
+				}
+			}
+			> h3 {
+				padding-bottom: 15px;
+				@include breakpoint(max-medium) {
+					font-size: 35px;
+				}
+				@include breakpoint(xx-small) {
+					font-size: 25px;
+				}
+			}
+			> p {
+				&.short-desc {
+					margin-bottom: 0;
+					padding-bottom: 20px;
+				}
+			}
+			> .icon-area {
+				padding-bottom: 25px;
+				> ul {
+					> li {
+						display: inline-block;
+						padding-right: 10px;
+						@include breakpoint(xx-small) {
+							width: 22%;
+						}
+					}
+				}
+			}
+		}
+		&.slider-navigation_style-1 {
+			.slick-arrow {
+				background-color: rgba(0, 0, 0, 0.1);
+				display: block !important;
+				width: 70px;
+				height: 70px;
+				line-height: 70px;
+				border-radius: 100%;
+				@include breakpoint(max-normal) {
+					display: none !important;
+				}
+				&:hover {
+					background-color: $heading-color;
+				}
+			}
+			.slick-dots {
+				display: none !important;
+				@include breakpoint(max-normal) {
+					display: block !important;
+				}
+			}
+		}
+	}
+}
+
+/* --Slider Background Image-- */
+// Home One
+.bg-1,
+.bg-2 {
+	background-image: url('../images/slider/1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 570px;
+	@include breakpoint (max-x_small) {
+		min-height: 320px;
+	}
+}
+.bg-2 {
+	background-image: url('../images/slider/2.jpg');
+}
+// Home Two
+.bg-3,
+.bg-4 {
+	background-image: url('../images/slider/2-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 840px;
+	@include breakpoint(max-normal) {
+		min-height: 570px;
+	}
+	@include breakpoint(max-small) {
+		min-height: 320px;
+	}
+}
+.bg-4 {
+	background-image: url('../images/slider/2-2.jpg');
+}
+// Home Three
+.bg-5,
+.bg-6 {
+	background-image: url('../images/slider/3-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 430px;
+	@include breakpoint(max-medium) {
+		min-height: 336px;
+	}
+}
+.bg-6 {
+	background-image: url('../images/slider/3-2.jpg');
+}
+// Home Four
+.bg-7,
+.bg-8 {
+	background-image: url('../images/slider/4-1.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	min-height: 465px;
+	@include breakpoint(xx-small) {
+		min-height: 390px;
+	}
+}
+.bg-8 {
+	background-image: url('../images/slider/4-2.jpg');
+}
