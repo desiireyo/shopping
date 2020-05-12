@@ -59,33 +59,26 @@
                                     {% for data_recommend in data3 %}
                                     <div class="slide-item">
                                         <div class="single-product">
-                                            <div style="width: 270px; height: 300px;">
-                                                <div class="product-img">
-                                                    <div style="width: 180px; height: 180px;">
-                                                        {% if data_recommend.slug.image.url %}
-                                                        <a href="{{ data_recommend.slug.get_url }}">
-                                                            <img class="primary-img" src="{{ data_recommend.slug.image.url }}" alt="Umino's Product Image">
-                                                        </a>
-                                                        {% endif %}
-                                                        <div class="add-actions">
-                                                            <ul>
-                                                                
-                                                            </ul>
-                                                        </div>
+                                            <div style="height: 362px;">
+                                                <div style="height: 250px; width: 100;">
+                                                    <div class="product-img">
+                                                            {% if data_recommend.slug.image.url %}
+                                                            <a href="{{ data_recommend.slug.get_url }}">
+                                                                <img class="primary-img" src="{{ data_recommend.slug.image.url }}" alt="Umino's Product Image">
+                                                            </a>
+                                                            {% endif %}
+                                                            
                                                     </div>
                                                 </div>
-                                                <div class="product-content">
-                                                    <div style="width: 180px; height: 100px;">
+                                                <div class="product-content_yonew">
+                                                    <div style="height: 100px;">
                                                         <div class="product-desc_info">
                                                             <div class="price-box">
                                                                 <span class="new-price">{{ data_recommend.slug.netprice_mem }}</span>
                                                                 <span class="old-price">{{ data_recommend.slug.price_mem }}</span>
                                                             </div>
-                                                            <h6 class="product-name"><a href="{{ data_recommend.slug.get_url }}">{{ data_recommend.slug.name }}</a>
+                                                            <h6 class="product-name"><a href="{{ data_recommend.slug.get_url }}">{{ data_recommend.slug.productname }}</a>
                                                             </h6>
-                                                            <div class="rating-box">
-                                                                
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -105,9 +98,9 @@
                                     {% for data1 in datas5 %}
                                     <div class="slide-item">
                                         <div class="single-product">
-                                            <div style="width: 270px; height: 300px;">
-                                                <div class="product-img">
-                                                    <div style="width: 180px; height: 180px;">
+                                            <div style="height: 362px;">
+                                                <div style="height: 250px; width: 100;">
+                                                    <div class="product-img">
                                                         <!-- {{forloop.counter0}} -->
                                                         
                                                         {% if data1.product.get_url %}
@@ -123,18 +116,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="product-content">
+                                                <div class="product-content_yonew">
                                                     <div style="width: 180px; height: 100px;">
                                                         <div class="product-desc_info">
                                                             <div class="price-box">
                                                                 <span class="new-price">{{ data1.product.netprice_mem }}</span>
                                                                 <span class="old-price">{{ data1.product.price_mem }}</span>
                                                             </div>
-                                                            <h6 class="product-name"><a href="{{ data.product.get_url }}">{{ data1.product.name }}</a>
+                                                            <h6 class="product-name"><a href="{{ data.product.get_url }}">{{ data1.product.productname }}</a>
                                                             </h6>
-                                                            <div class="rating-box">
-                                                                
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -153,17 +143,22 @@
                                     {% for data_promotion in data4 %}
                                     <div class="slide-item">
                                         <div class="single-product">
-                                            <div style="width: 270px; height: 300px;">
-                                                <div class="product-img">
-                                                    <div style="width: 180px; height: 180px;">
+                                            <div style="height: 362px;">
+                                                <div style="height: 250px; width: 100;">
+                                                    <div class="product-img">
                                                         {% if data_promotion.barcode.image.url %}
-                                                        <div class="ribbon-wrapperforindex ribbon-lgforindex">
+                                                        <!-- <div class="ribbon-wrapperforindex ribbon-lgforindex">
                                                             <div class="ribbon bg-info">
                                                                 {{ data_promotion.barcode.stat_promotion }}
                                                             </div>
-                                                        </div>
+                                                        </div> -->
+                                                        <div class="ribbon-wrapperindexpro ribbon-xl">
+                                                            <div class="ribbon bg-info">
+                                                                {{ data_promotion.barcode.stat_promotion }}
+                                                            </div>
+                                                          </div>
                                                         <a href="{{ data_promotion.barcode.get_url }}">
-                                                            <img class="primary-img" src="{{ data_promotion.barcode.image.url }}" alt="Umino's Product Image">
+                                                            <img class="primary-img" src="{{ data_promotion.barcode.image.url }}" alt="{{ data_promotion.barcode.name }}">
                                                         </a>
                                                         {% endif %}
                                                         <div class="add-actions">
@@ -173,18 +168,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="product-content">
+                                                <div class="product-content_yonew">
                                                     <div style="width: 180px; height: 100px;">
                                                         <div class="product-desc_info">
                                                             <div class="price-box">
                                                                 <span class="new-price">{{ data_promotion.barcode.netprice_mem }}</span>
                                                                 <span class="old-price">{{ data_promotion.barcode.price_mem }}</span>
                                                             </div>
-                                                            <h6 class="product-name"><a href="{{ data_promotion.barcode.get_url }}">{{ data_promotion.barcode.name }}</a>
+                                                            <h6 class="product-name"><a href="{{ data_promotion.barcode.get_url }}">{{ data_promotion.barcode.productname }}</a>
                                                             </h6>
-                                                            <div class="rating-box">
-                                                                
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

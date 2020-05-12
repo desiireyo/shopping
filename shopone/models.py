@@ -297,7 +297,7 @@ class setProducttoPromotion(models.Model):
 class setContact(models.Model):
     company_name = models.CharField(max_length=255)
     address1 = models.CharField(max_length=255)
-    address2 = models.CharField(max_length=100)
+    address2 = models.CharField(max_length=255)
     Phone = models.CharField(max_length=100)
     Phone1 = models.CharField(max_length=100)
     Phone2 = models.CharField(max_length=100)
@@ -316,3 +316,6 @@ class setContact(models.Model):
     time_closeshop=models.DateField()
     time_openoffice=models.DateField()
     time_closeoffice=models.DateField()
+
+    def __str__(self):
+        return self.company_name

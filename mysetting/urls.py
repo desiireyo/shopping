@@ -112,6 +112,8 @@ urlpatterns = [
     path('customize/setshipping/update',updShipping,name="updShipping"),
     path('customize/setshipping/delete/<int:shipping_id>',delShipping,name="delShipping"),
 
+    path('pageset/AddContact',AddContact,name="AddContact"),
+
     path('myDropdawn/',myDropdawn,name='myDropdawn'),
     path('myDsubgroup/',myDsubgroup,name='myDsubgroup'),
     path('myDtypegroup/',myDtypegroup,name='myDtypegroup'),

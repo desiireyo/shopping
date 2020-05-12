@@ -113,6 +113,12 @@
               <p>Page Home</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{% url 'AddContact' %}" class="nav-link {% if '/pageset/AddContact' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Contact</p>
+            </a>
+          </li>
           <!-- <li class="nav-item">
             <a href="{% url 'pagebestSell' %}" class="nav-link {% if '/pageset/pagebestSell' in request.path %} active {% endif %}">
               <i class="far fa-circle nav-icon"></i>

@@ -1620,12 +1620,16 @@ def DelPromotion2(request,page_id=None):
     return redirect('SetProducttoPromotion')
 
 def AddContact(request):
-    queryset = Product.objects.all().order_by('group')
+    
+    return render(request,'pagecontact/contact.html')
+
+def Setcontact(request):
+    queryset = setProducttoPromotion.objects.all().order_by('proname')
 
     context ={
         'queryset': queryset,
     }
-    return render(request,'pagecontact/contact.html',context)
+    return render(request,'pagepromotion2/index.html',context)
 
 #######################################################################
 #######################################################################
