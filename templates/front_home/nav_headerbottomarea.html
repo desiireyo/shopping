@@ -52,8 +52,8 @@
                             <li class="dropdown-holder">
                                 <a href="{% url 'contact' %}">{% if '/contact/' == request.path %} <strong class="yomenu-buttom">ติดต่อเรา</strong> {%else%} ติดต่อเรา {% endif %}</a>
                                 <ul class="hm-dropdown">
-                                    <li><a href="#">ร่วมงานกับเรา</a></li>
-                                    <li><a href="#">บริการของเรา</a></li>
+                                    <li><a href="{% url 'workwithwe' %}">ร่วมงานกับเรา</a></li>
+                                    <li><a href="{% url 'ourservices' %}">บริการของเรา</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -109,7 +109,13 @@
                                 
                             </li>
                             <li><a href="{% url 'Delivery' %}">{% if '/Delivery/' == request.path %} <strong class="yomenu-buttom-sticky">การจัดส่งสินค้า</strong> {%else%} <strong class="yomenu-buttom-sticky2">การจัดส่งสินค้า</strong> {% endif %}</a></li>
-                            <li><a href="{% url 'contact' %}">{% if '/contact/' == request.path %} <strong class="yomenu-buttom-sticky">ติดต่อเรา</strong> {%else%} <strong class="yomenu-buttom-sticky2">ติดต่อเรา</strong> {% endif %}</a></li>
+                            <li>
+                                <a href="{% url 'contact' %}">{% if '/contact/' == request.path %} <strong class="yomenu-buttom-sticky">ติดต่อเรา</strong> {%else%} <strong class="yomenu-buttom-sticky2">ติดต่อเรา</strong> {% endif %}</a>
+                                <ul class="hm-dropdown">
+                                    <li><a href="{% url 'workwithwe' %}">ร่วมงานกับเรา</a></li>
+                                    <li><a href="{% url 'ourservices' %}">บริการของเรา</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </div>

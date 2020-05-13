@@ -116,7 +116,7 @@
           <li class="nav-item">
             <a href="{% url 'AddContact' %}" class="nav-link {% if '/pageset/AddContact' in request.path %} active {% endif %}">
               <i class="far fa-circle nav-icon"></i>
-              <p>Contact</p>
+              <p>Company Setting</p>
             </a>
           </li>
           <!-- <li class="nav-item">
@@ -141,6 +141,18 @@
             <a href="{% url 'SetCondition' %}" class="nav-link {% if '/pageset/pageconditions' in request.path %} active {% endif %}">
               <i class="far fa-circle nav-icon"></i>
               <p>การจัดส่งสินค้า</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'SetWorktogether' %}" class="nav-link {% if '/pageset/pageworktogether' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>ร่วมงานกับเรา</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'SetOurservices' %}" class="nav-link {% if '/pageset/pageourservices' in request.path %} active {% endif %}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>บริการของเรา</p>
             </a>
           </li>
         </ul>

@@ -50,6 +50,8 @@ urlpatterns = [
     path('order/<int:order_id>',views.viewOrder,name='viewOrder'),
     path('contact/',views.contact, name='contact'),
     path('Delivery/',views.Delivery,name='Delivery'),
+    path('workwithwe/',views.workwithwe,name='workwithwe'),
+    path('ourservices/',views.ourservices,name='ourservices'),
 
     path('updateCart/',views.UpdMinicart,name='UpdMinicart'),
 

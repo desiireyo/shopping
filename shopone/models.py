@@ -312,10 +312,34 @@ class setContact(models.Model):
     facebook_link = models.CharField(max_length=255)
     pic_contact1 = models.ImageField(upload_to="contact",blank=True)
     pic_contact2 = models.ImageField(upload_to="contact",blank=True)
-    time_openshop=models.DateField()
-    time_closeshop=models.DateField()
-    time_openoffice=models.DateField()
-    time_closeoffice=models.DateField()
+    time_openshop=models.TimeField(auto_now=False, auto_now_add=False)
+    time_closeshop=models.TimeField(auto_now=False, auto_now_add=False)
+    time_openoffice=models.TimeField(auto_now=False, auto_now_add=False)
+    time_closeoffice=models.TimeField(auto_now=False, auto_now_add=False)
 
     def __str__(self):
         return self.company_name
+
+class setWorktogether(models.Model):
+    orderNo=models.IntegerField()
+    header=models.CharField(max_length=255)
+    detail=models.TextField(blank=True)
+    typedetail=models.CharField(max_length=100)
+    flag=models.BooleanField(default=False)
+    created=models.DateTimeField(auto_now_add=True)
+    updated=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.header
+
+class setOurservice(models.Model):
+    orderNo=models.IntegerField()
+    header=models.CharField(max_length=255)
+    detail=models.TextField(blank=True)
+    typedetail=models.CharField(max_length=100)
+    flag=models.BooleanField(default=False)
+    created=models.DateTimeField(auto_now_add=True)
+    updated=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.header

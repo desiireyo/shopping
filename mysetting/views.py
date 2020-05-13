@@ -1030,8 +1030,7 @@ def addNewband(request):
         
 
         if len(request.FILES) != 0:
-            p = request.FILES['nm_InputFile']
-            # files = request.FILES.getlist('nm_InputFile')            
+            p = request.FILES['nm_InputFile']          
 
             saveProduct=Pagesetting()
             saveProduct.pagename=pagename
@@ -1620,16 +1619,207 @@ def DelPromotion2(request,page_id=None):
     return redirect('SetProducttoPromotion')
 
 def AddContact(request):
-    
-    return render(request,'pagecontact/contact.html')
+    company = setContact.objects.get(id=1)
+    context = {
+        'company': company,
+    }
 
-def Setcontact(request):
-    queryset = setProducttoPromotion.objects.all().order_by('proname')
+    return render(request,'pagecontact/contact.html',context)
+
+def UpdContact(request):
+    if request.method=='POST':
+        company_name = request.POST['nameComp']
+        address1 = request.POST['address1']
+        # address2 = request.POST['address2']
+        Phone = request.POST['Phone']
+        Phone2 = request.POST['Phone2']
+        # Phone3 = request.POST['Phone3']
+        line_id = request.POST['line_id']
+        line_link = request.POST['line_link']
+        
+        facebook_link = request.POST['facebook_link']
+        email = request.POST['email']
+        shopopen = request.POST['shopopen']
+        shopclose = request.POST['shopclose']
+        officeopen = request.POST['officeopen']
+        officeclose = request.POST['officeclose']
+        # ldate = request.POST['date2']
+        
+        if len(request.FILES) != 0:
+            p = request.FILES['nm_InputFile']
+
+            saveApp=setContact.objects.get(id=1)
+            saveApp.company_name=company_name
+            saveApp.address1=address1
+            # saveApp.address2=address2
+            saveApp.Phone=Phone
+            saveApp.Phone2=Phone2
+            # saveApp.Phone3=Phone3
+            saveApp.line_id = line_id
+            saveApp.line_link = line_link
+            saveApp.line_qrcode = p
+            saveApp.facebook_link = facebook_link
+            saveApp.email = email
+            saveApp.time_openshop = shopopen
+            saveApp.time_closeshop = shopclose
+            saveApp.time_openoffice = officeopen
+            saveApp.time_closeoffice = officeclose
+            saveApp.save()
+        else:
+            saveApp=setContact.objects.get(id=1)
+            saveApp.company_name=company_name
+            saveApp.address1=address1
+            # saveApp.address2=address2
+            saveApp.Phone=Phone
+            saveApp.Phone2=Phone2
+            # saveApp.Phone3=Phone3
+            saveApp.line_id = line_id
+            saveApp.line_link = line_link
+            saveApp.facebook_link = facebook_link
+            saveApp.email = email
+            saveApp.time_openshop = shopopen
+            saveApp.time_closeshop = shopclose
+            saveApp.time_openoffice = officeopen
+            saveApp.time_closeoffice = officeclose
+            saveApp.save()
+
+    return redirect('AddContact')
+
+def SetWorktogether(request):
+    queryset = setWorktogether.objects.all().order_by('id')
 
     context ={
         'queryset': queryset,
     }
-    return render(request,'pagepromotion2/index.html',context)
+    return render(request,'pageworktogether/index.html',context)
+
+def AddWorktogether(request):
+    return render(request,'pageworktogether/create.html')
+
+def CreateWorktogether(request):
+    if request.method=='POST':        
+        orderNo = request.POST['order']
+        header = request.POST['header']
+        detail = request.POST['detail']
+        typedetail = 'text'
+        
+        if (request.POST['success'] == 'true'):
+            flag = True
+        else:
+            flag = False
+
+        saveApp=setWorktogether()
+        saveApp.orderNo=orderNo
+        saveApp.header=header
+        saveApp.detail=detail
+        saveApp.typedetail=typedetail
+        saveApp.flag=flag
+        saveApp.save()
+    return redirect('SetWorktogether')
+
+def EditWorktogether(request,page_id=None):    
+    data = setWorktogether.objects.get(id=page_id)
+        
+    context = {
+        'data': data,
+    }
+    return render(request,'pageworktogether/update.html',context)
+
+def UpdWorktogether(request):
+    if request.method=='POST':        
+        page_id = request.POST['page_id']
+        orderNo = request.POST['order']
+        header = request.POST['header']
+        detail = request.POST['detail']
+        typedetail = 'text'
+        
+        if (request.POST['success'] == 'true'):
+            flag = True
+        else:
+            flag = False
+
+        updFunc=setWorktogether.objects.get(id=page_id)
+        updFunc.orderNo=orderNo
+        updFunc.header=header
+        updFunc.detail=detail
+        updFunc.typedetail=typedetail
+        updFunc.flag=flag
+        updFunc.save()
+    return redirect('SetWorktogether')
+
+def DelWorktogether(request,page_id=None):
+    page = setWorktogether.objects.get(id=page_id)
+    page.delete()
+
+    return redirect('SetWorktogether')
+
+def SetOurservices(request):
+    queryset = setOurservice.objects.all().order_by('id')
+
+    context ={
+        'queryset': queryset,
+    }
+    return render(request,'pageourservices/index.html',context)
+
+def AddOurservices(request):
+    return render(request,'pageourservices/create.html')
+
+def CreateOurservices(request):
+    if request.method=='POST':        
+        orderNo = request.POST['order']
+        header = request.POST['header']
+        detail = request.POST['detail']
+        typedetail = 'text'
+        
+        if (request.POST['success'] == 'true'):
+            flag = True
+        else:
+            flag = False
+
+        saveApp=setOurservice()
+        saveApp.orderNo=orderNo
+        saveApp.header=header
+        saveApp.detail=detail
+        saveApp.typedetail=typedetail
+        saveApp.flag=flag
+        saveApp.save()
+    return redirect('SetOurservices')
+
+def EditOurservices(request,page_id=None):    
+    data = setOurservice.objects.get(id=page_id)
+        
+    context = {
+        'data': data,
+    }
+    return render(request,'pageourservices/update.html',context)
+
+def UpdOurservices(request):
+    if request.method=='POST':        
+        page_id = request.POST['page_id']
+        orderNo = request.POST['order']
+        header = request.POST['header']
+        detail = request.POST['detail']
+        typedetail = 'text'
+        
+        if (request.POST['success'] == 'true'):
+            flag = True
+        else:
+            flag = False
+
+        updFunc=setOurservice.objects.get(id=page_id)
+        updFunc.orderNo=orderNo
+        updFunc.header=header
+        updFunc.detail=detail
+        updFunc.typedetail=typedetail
+        updFunc.flag=flag
+        updFunc.save()
+    return redirect('SetOurservices')
+
+def DelOurservices(request,page_id=None):
+    page = setOurservice.objects.get(id=page_id)
+    page.delete()
+
+    return redirect('SetOurservices')
 
 #######################################################################
 #######################################################################

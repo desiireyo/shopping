@@ -113,6 +113,21 @@ urlpatterns = [
     path('customize/setshipping/delete/<int:shipping_id>',delShipping,name="delShipping"),
 
     path('pageset/AddContact',AddContact,name="AddContact"),
+    path('pageset/AddContact/update',UpdContact,name="UpdContact"),
+
+    path('pageset/pageworktogether',SetWorktogether,name='SetWorktogether'),
+    path('pageset/pageworktogether/add',AddWorktogether,name="AddWorktogether"),
+    path('pageset/pageworktogether/create',CreateWorktogether,name="CreateWorktogether"),
+    path('pageset/pageworktogether/edit/<int:page_id>',EditWorktogether,name="EditWorktogether"),
+    path('pageset/pageworktogether/update',UpdWorktogether,name="UpdWorktogether"),
+    path('pageset/pageworktogether/delete/<int:page_id>',DelWorktogether,name="DelWorktogether"),
+
+    path('pageset/pageourservices',SetOurservices,name='SetOurservices'),
+    path('pageset/pageourservices/add',AddOurservices,name="AddOurservices"),
+    path('pageset/pageourservices/create',CreateOurservices,name="CreateOurservices"),
+    path('pageset/pageourservices/edit/<int:page_id>',EditOurservices,name="EditOurservices"),
+    path('pageset/pageourservices/update',UpdOurservices,name="UpdOurservices"),
+    path('pageset/pageourservices/delete/<int:page_id>',DelOurservices,name="DelOurservices"),
 
     path('myDropdawn/',myDropdawn,name='myDropdawn'),
     path('myDsubgroup/',myDsubgroup,name='myDsubgroup'),

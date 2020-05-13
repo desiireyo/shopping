@@ -1,4 +1,5 @@
 {% extends 'backend/layout.html' %}
+{% load tz %}
 
 {% block content_head %}
 <h1 class="m-0 text-dark">Contract</h1>
@@ -12,7 +13,8 @@
 
 {% block content %}
 <div class="container-fluid">
-    
+  <form class="form-horizontal" action="{% url 'UpdContact' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
         <div class="card">
           <div class="card-header p-2">
             <ul class="nav nav-pills">
@@ -25,134 +27,173 @@
             <div class="tab-content">
 
                 <div class="active tab-pane" id="settings">
-                    <form class="form-horizontal">
+                    
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">ชื่อบริษัท</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" placeholder="">
+                          <input type="text" class="form-control" id="inputName" name="nameComp" value="{{ company.company_name }}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputAddr1" class="col-sm-2 col-form-label">ที่อยู่</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputAddr1" placeholder="">
+                          <input type="text" class="form-control" id="inputAddr1" name="address1" value="{{ company.address1 }}" >
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputTel" class="col-sm-2 col-form-label">เบอร์โทรศัพท์</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputTel" placeholder="">
+                          <input type="text" class="form-control" id="inputTel" name="Phone" value="{{ company.Phone }}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputTel2" class="col-sm-2 col-form-label">เบอร์โทรศัพท์</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputTel2" placeholder="">
+                          <input type="text" class="form-control" id="inputTel2" name="Phone2" value="{{ company.Phone2 }}">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputMap" class="col-sm-2 col-form-label">Map</label>
+                        <label for="inputMap" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputMap" placeholder="">
+                          <input type="text" class="form-control" id="inputMap" name="email" value="{{company.email}}">
                         </div>
                       </div>
                                             
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
-                        </div>
-                      </div>
-                    </form>
+                      
+                    
                 </div>
                 <!-- /.tab-pane -->
 
                 <div class="tab-pane" id="activity">
-                    <form class="form-horizontal">
+                    
                         <div class="form-group row">
                           <label for="inputLine" class="col-sm-2 col-form-label">Line ID:</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputLine" placeholder="">
+                            <input type="text" class="form-control" id="inputLine" name="line_id" value="{{ company.line_id }}">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="inputLine2" class="col-sm-2 col-form-label">Line Link</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputLine2" placeholder="">
+                            <input type="text" class="form-control" id="inputLine2" name="line_link" value="{{company.line_link}}">
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="inputQrcode" class="col-sm-2 col-form-label">Line QR-code</label>
+                          <label for="id_InputFile" class="col-sm-2 col-form-label">Line Link</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputQrcode" placeholder="">
-                          </div>
+                              <div class="form-group">                                
+                                <div class="input-group">
+                                  <div class="custom-file">
+                                    <input type="file" class="form-control custom-file-input" id="id_InputFile" name="nm_InputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                  </div>
+                                </div>
+                                {% if company.line_qrcode %}
+                                <p>File uploaded at: <a href="{{ company.line_qrcode.url }}" target="_blank">{{ company.line_qrcode.url }}</a></p>
+                                {% else %}
+                                <p>File uploaded at: No File.</p>
+                                {% endif %}
+                              </div>
+                          </div>                          
                         </div>
                         <div class="form-group row">
                           <label for="inputFace" class="col-sm-2 col-form-label">Facebook</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputFace" placeholder="">
+                            <input type="text" class="form-control" id="inputFace" name="facebook_link" value="{{company.facebook_link}}">
                           </div>
-                        </div>
-                                              
-                        <div class="form-group row">
-                          <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger">Submit</button>
-                          </div>
-                        </div>
-                    </form>
+                        </div>                               
+                    
                 </div>
                 <!-- /.post -->
-
-                
                 
                 <div class="tab-pane" id="timeline">
-                    <form class="form-horizontal">
-                        <div class="row">
-                            <label for="inputLine" class="col-sm-2 col-form-label">เวลาเปิด:</label>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="inputLine" class="col-sm-2 col-form-label">เวลาเปิด:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputLine" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">                                
-                                <div class="form-group">
-                                    <label for="inputLine" class="col-sm-2 col-form-label">เวลาปิด:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputLine" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
+                    
+                      <div class="form-group row">
+                        <label for="inputLine" class="col-sm-2 col-form-label">ร้านสลักศิลป์ ฟู้ดส์ช็อป:</label>
+                        <div class="col-sm-10">
                           
-                        </div>
-                        <div class="row">
+                          <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="inputLine" class="col-sm-2 col-form-label">เวลาเปิด:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputLine" placeholder="">
+                              <!-- text input -->
+                              <div class="form-group">
+                                <label>เวลาเปิด</label>
+                                  <div class="input-group date" id="timepicker" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#timepicker" name="shopopen" value="{{company.time_openshop}}">
+                                    <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
                                     </div>
-                                </div>
+                                  </div>
+                              </div>
                             </div>
-                            <div class="col-sm-6">                                
-                                <div class="form-group">
-                                    <label for="inputLine" class="col-sm-2 col-form-label">เวลาปิด:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputLine" placeholder="">
-                                    </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label>เวลาปิด</label>
+                                <div class="input-group date" id="timepicker2" data-target-input="nearest">
+                                  <input type="text" class="form-control datetimepicker-input" data-target="#timepicker2" name="shopclose" value="{{company.time_closeshop}}">
+                                  <div class="input-group-append" data-target="#timepicker2" data-toggle="datetimepicker">
+                                      <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                  </div>
                                 </div>
+                              </div>
                             </div>
+                          </div>
                         </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="inputLine" class="col-sm-2 col-form-label">ออฟฟิต</label>
+                        <div class="col-sm-10">
+                          
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <!-- text input -->
+                              <div class="form-group">
+                                <label>เวลาเปิด</label>
+                                <div class="input-group date" id="timepicker3" data-target-input="nearest">
+                                  <input type="text" class="form-control datetimepicker-input" data-target="#timepicker3" name="officeopen" value="{{company.time_openoffice}}">
+                                  <div class="input-group-append" data-target="#timepicker3" data-toggle="datetimepicker">
+                                      <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="form-group">
+                                <label>เวลาปิด</label>
+                                <div class="input-group date" id="timepicker4" data-target-input="nearest">
+                                  <input type="text" class="form-control datetimepicker-input" data-target="#timepicker4" name="officeclose" value="{{company.time_closeoffice}}">
+                                  <div class="input-group-append" data-target="#timepicker4" data-toggle="datetimepicker">
+                                      <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
                         
-                    </form>
+                        
+                    
                 </div>
                 <!-- /.tab-pane -->
 
               
             </div>
             <!-- /.tab-content -->
+            
         </div><!-- /.card-body -->
+        <div class="card-footer">
+          <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+              <button type="submit" class="btn btn-primary btn-block">บันทึก</button>
+            </div>
+          </div>
+        </div>
+
+      </div>       
+    </form>
 </div>
 
 {% endblock %}
@@ -163,6 +204,22 @@
     $(document).ready(function() {
         $('.select2bs4').select2({
             theme: 'bootstrap4'
+        });
+
+        $('#timepicker').datetimepicker({
+          format: 'HH:mm'
+        });
+
+        $('#timepicker2').datetimepicker({
+          format: 'HH:mm'
+        });
+
+        $('#timepicker3').datetimepicker({
+          format: 'HH:mm'
+        });
+
+        $('#timepicker4').datetimepicker({
+          format: 'HH:mm'
         });
 
         bsCustomFileInput.init();

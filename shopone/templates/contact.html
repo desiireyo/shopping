@@ -25,16 +25,16 @@
                     <p class="contact-page-message"></p>
                     <div class="single-contact-block">
                         <h4><i class="fa fa-fax"></i> Address</h4>
-                        <p>75/6-9 ถ.ท่ากลาง ต.ทับเที่ยง อ.เมือง จ.ตรัง</p>
+                        <p>{{ company.address1 }}</p>
                     </div>
                     <div class="single-contact-block">
                         <h4><i class="fa fa-phone"></i> Phone</h4>
-                        <p>Mobile: (075) 219643</p>
-                        <p>Mobile: (089) 5913883</p>
+                        <p>Tel: {{company.Phone}}</p>
+                        <p>Tel: {{company.Phone2}}</p>
                     </div>
                     <div class="single-contact-block last-child">
-                        <h4><i class="fa fa-envelope-o"></i> Email</h4>
-                        <p>info@yourdomain.com</p>
+                        <h4><i class="fa fa-envelope-o"></i> LINE@ : {{company.line_id}}</h4>                        
+                        <img src="{{ company.line_qrcode.url }}" alt="">
                     </div>
                 </div>
             </div>

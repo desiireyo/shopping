@@ -1,0 +1,79 @@
+{% extends 'front_home/layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load myfunc %}
+
+
+{% block content %}
+
+<!-- Begin Umino's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="active">บริการของเรา</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Umino's Breadcrumb Area End Here -->
+<!-- Begin Umino's Frequently Area -->
+<div class="frequently-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                
+                <!-- Begin Frequently Accordin -->
+                <div class="frequently-accordion">
+                    <div id="accordion">
+                        <!-- <div class="card actives">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <a href="javascript:void(0)" class="javascript:void(0)" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        บริการขนส่ง ทั่วไทย
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <ul>
+                                        <li>- บริการขนส่งทั่วไทย เพียงกล่องเดียวเราก็ส่ง ทั่วประเทศโดยไม่มีพื้นที่ยกเว้น ทั้งสินค้าทั่วไป และสินค้าควบคุมอุณหภูมิ แช่เย็น (Chilled 0-8 องศา) แช่แข็ง (Frozen <-15 องศา)</li>
+                                        <li>- บริการจัดส่งสินค้ารายชิ้น: บริการขนส่งทั่วไทย เพียงกล่องเดียวเราก็ส่ง ไม่ว่าจะเป็นสินค้าทั่วไป สินค้าควบคุมอุณหภูมิ แช่เย็น แช่แข็ง ก็ส่งได้ทุกที่ทั่วประเทศไทย ส่งตรงถึงหน้าบ้านของปลายทาง โดยไม่มีพื้นที่จำกัด สามารถเช็คราคาค่าขนส่งได้ที่ check price</li>
+                                        <li>- บริการจัดส่งสินค้าแบบรถเหมาคันทั่วประเทศ: โดยคิดอัตราเป็นราคาเหมาตามระยะทาง เรามีรถหลากหลายประเภท ทั้งรถกระบะ รถ 6 ล้อ 10 ล้อ และรถตู้เทรลเลอร์ พร้อมให้บริการ สามารถสอบถามข้อมูลเพิ่มเติมได้ทาง Facebook Line@</li>
+                                        <li>- บริการรับสินค้าคืนทั่วประเทศ: เมื่อลูกค้าเกิดความผิดพลาดจากการจัดส่งสินค้าถึงปลายทาง เช่น ส่งของผิดออเดอร์ ของที่ส่งไปเกินจำนวน เป็นต้น สามารถใช้บริการให้ทาง IEL ไปรับสินค้าคืนจากปลายทาง กลับมายัง DC ต้นทางที่ลูกค้าส่งไปได้ โดยคิดค่าขนส่งเท่ากับตอนส่งสินค้าไปปลายทาง</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> -->
+                        
+                        {% for data in qWork %}
+                        <div class="card {% if data.orderNo == 1 %} actives {% endif %}">
+                            <div class="card-header" id="hd{{data.orderNo}}">
+                                <h5 class="mb-0">
+                                    <a href="javascript:void(0)" class="collapsed" data-toggle="collapse" data-target="#collapse{{data.orderNo}}" aria-expanded="false" aria-controls="collapse{{data.orderNo}}">
+                                        {{ data.header }}
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapse{{data.orderNo}}" class="collapse {% if data.orderNo == 1 %} show {% endif %}" aria-labelledby="hd{{data.orderNo}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    
+                                     {{ data.detail }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}                        
+
+                        <!-- {{ 'abc0010defabc'|cut:"abc" }}<br> -->
+                        <!-- {{ 'ABC'|lower}}<br> -->
+                        <!-- <p>A random value, 1 ≤ {% random_int 1 10000 %} ≤ 10.</p><br> -->
+                    </div>
+                </div>
+                <!--Frequently Accordin End Here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

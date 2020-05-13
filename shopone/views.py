@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponseRedirect,HttpResponse
 from django.http import JsonResponse
-from shopone.models import Product,Setgroup,Setsubgroup,Settypegroup,Setunit,Setstatus,ProductImageItem,Cart,CartItem,OrderGuest,OrderGuestItem,OrderMember,OrderMemberItem,Pagesetting,ProfileUser,ShippingRange,OrderAllUser,OrderAllUserItem,SetConditions,setProducttoPromotion
+from shopone.models import Product,Setgroup,Setsubgroup,Settypegroup,Setunit,Setstatus,ProductImageItem,Cart,CartItem,OrderGuest,OrderGuestItem,OrderMember,OrderMemberItem,Pagesetting,ProfileUser,ShippingRange,OrderAllUser,OrderAllUserItem,SetConditions,setProducttoPromotion,setContact,setWorktogether,setOurservice
 from django.contrib.auth import login , authenticate,logout
 from django.contrib.auth.models import Group,User
 from django.core.paginator import Paginator,EmptyPage,InvalidPage
@@ -42,7 +42,15 @@ def index(request):
     context['data4'] = data4
     context['datas5'] = data5
     # print(data1.xproduct_id)
+    # context['company'] = loadlayout(request)
     
+    return render(request,'index.html',context)
+
+def loadlayout(request):
+    company = setContact.objects.get(id=1)
+    context = {
+        'company': company,
+    }
     return render(request,'index.html',context)
 
 def indexSetgroup(request,group_slug=None):
@@ -717,7 +725,9 @@ def viewOrder(request,order_id):
     return render(request,'vworder.html',context)
 
 def contact(request):
+    company = setContact.objects.get(id=1)
     context = UpdMinicart(request)
+    context['company'] = company
     return render(request,'contact.html',context)
 
 def index2(request):
@@ -811,3 +821,15 @@ def Delivery(request):
     qConditions = SetConditions.objects.filter(flag=True).order_by('orderNo')
     context['qConditions'] = qConditions
     return render(request,'delivery.html',context)
+
+def workwithwe(request):
+    context = UpdMinicart(request)
+    qWork = setWorktogether.objects.filter(flag=True).order_by('orderNo')
+    context['qWork'] = qWork
+    return render(request,'workwithwe.html',context)
+
+def ourservices(request):
+    context = UpdMinicart(request)
+    qWork = setOurservice.objects.filter(flag=True).order_by('orderNo')
+    context['qWork'] = qWork
+    return render(request,'ourservices.html',context)
