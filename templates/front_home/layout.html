@@ -52,6 +52,8 @@
     <link rel="stylesheet" href="{% static 'css/plugins/plugins.min.css' %}">
     -->
 
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <!-- Main Style CSS (Please use minify version for better website load performance) -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!--<link rel="stylesheet" href="{% static 'css/style.min.css' %}">-->
@@ -122,15 +124,15 @@
                             <div class="footer-widgets footer-contact_info">
                                 <ul>
                                     <li>
-                                        <i class="ion-ios-home-outline"></i>
+                                        <i class="fas fa-map-marker-alt" style="color: chocolate;"></i>
                                         <span>75/6-9 ถ.ท่ากลาง ต.ทับเที่ยง อ.เมือง จ.ตรัง</span>
                                     </li>
                                     <li>
-                                        <i class="ion-ios-email-outline"></i>
+                                        <i class="fab fa-line" style="color: green;"></i>
                                         <span>LINE@ : 081-8918519</span>
                                     </li>
                                     <li>
-                                        <i class="ion-android-call"></i>
+                                        <i class="ion-android-call" style="color: goldenrod;"></i>
                                         <span>Phone:</span>
                                         <div class="cellphone-number_area">
                                             <a href="#">086-4792441, 095-0858880</a>
@@ -144,8 +146,20 @@
                                 </ul>
                             </div>
                         </div>
+                        {% block contact_comp %}
+
+                        {% endblock contact_comp %}
                         
                         <div class="col-lg-2 col-md-6 col-sm-6 order-3 order-lg-3">
+                            
+                            <ul>
+                                <li>
+                                    <a href="https://lin.ee/gSnHN3o" data-toggle="tooltip" target="_blank" title="Line@">
+                                        <img src="{% static 'images/line/qrcode_slugsil.png' %}" alt="" width="120px">
+                                    </a>
+                                    <h4 style="color: green; font-weight: bold; font-size: medium;">LINE QR Code</h4>
+                                </li>
+                            </ul>
                             <!-- <ul>
                                 <li class="facebook">
                                     <a href="https://www.facebook.com/salucksilpclub/" data-toggle="tooltip" target="_blank" title="Facebook">

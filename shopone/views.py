@@ -259,7 +259,7 @@ def addCart2(request):
         if (product.stat_promotion) != '':
             
             proname = setProducttoPromotion.objects.get(barcode__id=product_id)
-            print(proname)
+            # print(proname)
 
         try:
             cart=Cart.objects.get(cart_id=_cart_id(request))
@@ -301,7 +301,7 @@ def addCart2(request):
     return render(request, 'minicart.html', context)
 
 def addCart3(request):
-    print('addCart3')
+    # print('addCart3')
     if request.method=='GET':
         product_id = request.GET['product_id']
         qty = request.GET['product_qty']
@@ -344,16 +344,16 @@ def addCart3(request):
         ## check promotion ##
         if (product.stat_promotion) != '':
             pro = setProducttoPromotion.objects.get(barcode__id=product_id)
-            print(pro.proname)
+            # print(pro.proname)
             cart_item=CartItem.objects.get(product=product,cart=cart,statusBuy='ขาย')
 
             if math.trunc(cart_item.quantity / pro.quantity) > 0:
 
                 if (pro.free) == 0:
                     #cart_item=CartItem.objects.get(product=product,cart=cart,statusBuy='ขาย')
-                    print(cart_item.quantity)
+                    # print(cart_item.quantity)
                     if cart_item.quantity >= pro.quantity:
-                        print('pro XXXXXX')
+                        # print('pro XXXXXX')
                         decrease = math.trunc(cart_item.quantity / pro.quantity) * pro.price
                         try:
                             #ซื้อรายการสินค้าซ้ำ
@@ -656,7 +656,9 @@ def addOrderMember(request):
                 message = message,
                 total = total,
                 user_id = userX,
-                status = 'member'
+                status = 'member',
+                flagCancel = False,
+                statusCancel = '',
             )
             order_member.save()
 
@@ -679,6 +681,7 @@ def addOrderMember(request):
                     quantity=item.quantity,
                     price=xprice,
                     statusBuy=xstatusBuy,
+                    flagCancel=False
                 )
                 order_member_item.save()
                 #ลดจำนวน Stock

@@ -241,12 +241,37 @@ class OrderAllUser(models.Model):
     message=models.TextField(blank=True)
     flag=models.BooleanField(default=False)
     status=models.CharField(max_length=255)
+    flagCancel=models.BooleanField(default=False)
+    statusCancel=models.CharField(max_length=100)
     dtcreated=models.DateField(auto_now_add=True)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
+    orderno = models.CharField(max_length=100,null=False)
 
     class Meta :
         db_table='OrderAllUser'
+
+    def order_number(order_date):
+        sub_order_date = '{}{:02d}'.format(str(order_date.year)[2:4], order_date.month)
+        print(sub_order_date)
+        sub_order_no = 'HC-' + sub_order_date
+        last_code = OrderAllUser.objects.filter(orderno__contains=sub_order_no).order_by('orderno').last()
+        if not last_code:
+            return sub_order_no + '0001'
+        else:
+            code = last_code.orderno
+            code_int = int(code.split(sub_order_no)[-1])
+            width = 4
+            new_code_int = code_int + 1
+            formatted = (width - len(str(new_code_int))) * "0" + str(new_code_int)
+            new_code_no = sub_order_no + str(formatted)
+            return new_code_no
+    
+    def save(self, *args, **kwargs):
+        if not self.orderno:
+            self.orderno = order_number(self.dtcreated)
+        super(OrderAllUser, self).save(*args, **kwargs)
+
     
 class OrderAllUserItem(models.Model):
     order=models.ForeignKey(OrderAllUser,on_delete=models.PROTECT)
@@ -255,6 +280,7 @@ class OrderAllUserItem(models.Model):
     price=models.DecimalField(max_digits=10,decimal_places=2)
     flag=models.BooleanField(default=False)
     statusBuy=models.CharField(max_length=100,default='ขาย')
+    flagCancel=models.BooleanField(default=False)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
 

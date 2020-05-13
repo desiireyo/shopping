@@ -59,7 +59,8 @@ INDEX:
 /*  00 - Base - Typography
 /*----------------------------------------*/
 body {
-  font-family: "Work Sans", sans-serif;
+  /*font-family: "Work Sans", sans-serif;*/
+  font-family: 'Kanit', sans-serif;
   background-color: #ffffff;
   color: #333333;
   font-size: 15px;
@@ -72,14 +73,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Work Sans", sans-serif;
+  /*font-family: "Work Sans", sans-serif;*/
+  font-family: 'Kanit', sans-serif;
   color: #333333;
   line-height: 1;
   font-weight: 400;
 }
 
 p {
-  font-family: "Work Sans", sans-serif;
+  /*font-family: "Work Sans", sans-serif;*/
+  font-family: 'Kanit', sans-serif;
   color: #333333;
   font-size: 15px;
   line-height: 24px;
@@ -6524,8 +6527,9 @@ button, .global-overlay, .quantity .cart-plus-minus > .qtybutton,
   -webkit-box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.2);
           box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
-  background: #99CCFF;
-  width: 230px;
+  background: #0066CC;
+  border-radius: 0 0 10px 10px;
+  width: 150px;
   padding: 10px 0 10px;
   -webkit-transform-origin: 0 0 0;
       -ms-transform-origin: 0 0 0;
@@ -6540,6 +6544,7 @@ button, .global-overlay, .quantity .cart-plus-minus > .qtybutton,
 .header-bottom_area .main-menu_area > nav > ul > li .hm-dropdown > li > a {
   padding: 10px 20px;
   display: block;
+  color: #ffffff;
 }
 
 .header-bottom_area .main-menu_area > nav > ul > li:hover .hm-dropdown {
