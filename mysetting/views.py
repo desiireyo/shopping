@@ -21,10 +21,10 @@ import datetime
 # Create your views here.
 @login_required(login_url='Login')
 def mysetting(request):    
-    data1=OrderAllUser.objects.filter(status='member',flag=True).count()
-    data2=OrderAllUser.objects.filter(status='member').count()
-    data3=OrderAllUser.objects.filter(status='guest',flag=True).count()
-    data4=OrderAllUser.objects.filter(status='guest').count()
+    data1=OrderAllUser.objects.filter(status='member',flag=True,flagCancel=True).count()
+    data2=OrderAllUser.objects.filter(status='member',flagCancel=True).count()
+    data3=OrderAllUser.objects.filter(status='guest',flag=True,flagCancel=True).count()
+    data4=OrderAllUser.objects.filter(status='guest',flagCancel=True).count()
     year = 2020
     month = 4
     data5=OrderAllUser.objects.filter(created__year__gte=year,created__month__gte=month,created__year__lte=year,created__month__lte=month).count()

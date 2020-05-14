@@ -258,7 +258,7 @@ class OrderAllUser(models.Model):
         today = datetime.now().date()
         data2 = OrderAllUser.objects.filter(dtcreated__year=today.year, dtcreated__month=today.month, dtcreated__day=today.day).count()
         # print(data2)
-        runnumber = data2
+        runnumber = data2+1
         xformat = '{}{:02d}{:02d}'.format(str(today.year)[0:4], today.month, today.day)
         self.orderno = str(xformat)+"%04d" % runnumber
         # if data2:
