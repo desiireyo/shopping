@@ -657,7 +657,7 @@ def addOrderMember(request):
                 total = total,
                 user_id = userX,
                 status = 'member',
-                flagCancel = False,
+                flagCancel = True,
                 statusCancel = '',
             )
             order_member.save()

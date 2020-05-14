@@ -18,13 +18,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='orderalluser',
             name='orderno',
-            field=models.CharField(default=0, max_length=100),
+            field=models.CharField(default='0', max_length=100),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='orderalluser',
             name='statusCancel',
-            field=models.CharField(default=0, max_length=100),
+            field=models.CharField(default='normal', max_length=100),
             preserve_default=False,
         ),
         migrations.AddField(

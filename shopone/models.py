@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate,logout
+from datetime import datetime, timedelta, time
 
 # Create your models here.
 class Setgroup(models.Model):
@@ -241,7 +242,8 @@ class OrderAllUser(models.Model):
     message=models.TextField(blank=True)
     flag=models.BooleanField(default=False)
     status=models.CharField(max_length=255)
-    flagCancel=models.BooleanField(default=False)
+    flagCancel=models.BooleanField(default=True)
+    dtCancel=models.DateField(auto_now=True)
     statusCancel=models.CharField(max_length=100)
     dtcreated=models.DateField(auto_now_add=True)
     created=models.DateTimeField(auto_now_add=True)
@@ -250,26 +252,30 @@ class OrderAllUser(models.Model):
 
     class Meta :
         db_table='OrderAllUser'
-
-    def order_number(order_date):
-        sub_order_date = '{}{:02d}'.format(str(order_date.year)[2:4], order_date.month)
-        print(sub_order_date)
-        sub_order_no = 'HC-' + sub_order_date
-        last_code = OrderAllUser.objects.filter(orderno__contains=sub_order_no).order_by('orderno').last()
-        if not last_code:
-            return sub_order_no + '0001'
-        else:
-            code = last_code.orderno
-            code_int = int(code.split(sub_order_no)[-1])
-            width = 4
-            new_code_int = code_int + 1
-            formatted = (width - len(str(new_code_int))) * "0" + str(new_code_int)
-            new_code_no = sub_order_no + str(formatted)
-            return new_code_no
     
     def save(self, *args, **kwargs):
-        if not self.orderno:
-            self.orderno = order_number(self.dtcreated)
+                
+        today = datetime.now().date()
+        data2 = OrderAllUser.objects.filter(dtcreated__year=today.year, dtcreated__month=today.month, dtcreated__day=today.day).count()
+        # print(data2)
+        runnumber = data2
+        xformat = '{}{:02d}{:02d}'.format(str(today.year)[0:4], today.month, today.day)
+        self.orderno = str(xformat)+"%04d" % runnumber
+        # if data2:
+            
+            
+        # else:
+        #     data = OrderAllUser.objects.last()
+        #     print(data)
+        #     dt = '{}{:02d}{:02d}'.format(str(data.dtcreated.year)[0:4], data.dtcreated.month, data.dtcreated.day)
+        #     self.orderno = str(dt)+"%04d" % runnumber
+        # print("%04d" % data.id)
+        
+        # day = '{:02d}'.format(data.dtcreated.day)
+        # print(dt)
+        # print(day)
+        
+        # print('order no : '+self.orderno)
         super(OrderAllUser, self).save(*args, **kwargs)
 
     

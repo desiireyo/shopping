@@ -668,27 +668,27 @@ def myOrderall(request):
         query2 = OrderAllUserItem.objects.select_related('xproduct').order_by('created')
         if allmember == '2':
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(status='member').select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',flagCancel=True).select_related('user').order_by('-user')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(status='member',flag=True).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',flag=True,flagCancel=True).select_related('user').order_by('-user')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(status='member',flag=False).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',flag=False,flagCancel=True).select_related('user').order_by('-user')
 
         elif allmember == '1':
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(status='guest').order_by('-created')
+                queryset = OrderAllUser.objects.filter(status='guest',flagCancel=True).order_by('-created')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(status='guest',flag=True).order_by('-created')
+                queryset = OrderAllUser.objects.filter(status='guest',flag=True,flagCancel=True).order_by('-created')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(status='guest',flag=False).order_by('-created')
+                queryset = OrderAllUser.objects.filter(status='guest',flag=False,flagCancel=True).order_by('-created')
         
         elif allmember == '0' :
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter().order_by('-created')
+                queryset = OrderAllUser.objects.filter(flagCancel=True).order_by('-created')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(flag=True).order_by('-created')
+                queryset = OrderAllUser.objects.filter(flag=True,flagCancel=True).order_by('-created')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(flag=False).order_by('-created')
+                queryset = OrderAllUser.objects.filter(flag=False,flagCancel=True).order_by('-created')
     
     context = {        
         'queryset': queryset,
@@ -719,6 +719,15 @@ def CanconfirmOrdermember(request,order_id):
 
         order.save()
         
+    return redirect('myOrderall')
+
+@login_required(login_url='Login')
+def DelOrderall(request,order_id):
+    qdata = OrderAllUser.objects.get(id=order_id)    
+    qdata.flagCancel=0
+
+    qdata.save()
+
     return redirect('myOrderall')
 
 @login_required(login_url='Login')
@@ -783,51 +792,51 @@ def rp_myorder(request):
         
         if for_all == '0':            
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(fname__icontains=name,dtcreated__range=(date1, date2)).order_by('-user')                
+                queryset = OrderAllUser.objects.filter(fname__icontains=name,dtcreated__range=(date1, date2),flagCancel=True).order_by('-user')                
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=True,dtcreated__range=(date1, date2)).order_by('-user')                
+                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=True,dtcreated__range=(date1, date2),flagCancel=True).order_by('-user')                
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=False,dtcreated__range=(date1, date2)).order_by('-user')
+                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=False,dtcreated__range=(date1, date2),flagCancel=True).order_by('-user')
                 
         elif for_all == '1':
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,created__range=(date1, date2)).order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,created__range=(date1, date2),flagCancel=True).order_by('-user')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=True,created__range=(date1, date2)).order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=True,created__range=(date1, date2),flagCancel=True).order_by('-user')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=False,created__range=(date1, date2)).order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=False,created__range=(date1, date2),flagCancel=True).order_by('-user')
 
         elif for_all == '2':
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,created__range=(date1, date2)).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,created__range=(date1, date2),flagCancel=True).select_related('user').order_by('-user')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=True,created__range=(date1, date2)).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=True,created__range=(date1, date2),flagCancel=True).select_related('user').order_by('-user')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=False,created__range=(date1, date2)).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=False,created__range=(date1, date2),flagCancel=True).select_related('user').order_by('-user')
     else:
         
         if for_all == '0':
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(fname__icontains=name).order_by('-user')
+                queryset = OrderAllUser.objects.filter(fname__icontains=name,flagCancel=True).order_by('-user')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=True).order_by('-user')
+                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=True,flagCancel=True).order_by('-user')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=False).order_by('-user')
+                queryset = OrderAllUser.objects.filter(fname__icontains=name,flag=False,flagCancel=True).order_by('-user')
 
         elif for_all == '1':
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name).order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flagCancel=True).order_by('-user')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=True).order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=True,flagCancel=True).order_by('-user')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=False).order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='guest',fname__icontains=name,flag=False,flagCancel=True).order_by('-user')
         elif for_all == '2':
             if allstat == '0':
-                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flagCancel=True).select_related('user').order_by('-user')
             elif allstat == '1':
-                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=True).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=True,flagCancel=True).select_related('user').order_by('-user')
             elif allstat == '2':
-                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=False).select_related('user').order_by('-user')
+                queryset = OrderAllUser.objects.filter(status='member',fname__icontains=name,flag=False,flagCancel=True).select_related('user').order_by('-user')
 
 
     # print(for_mem)

@@ -45,7 +45,7 @@
                 {% for data in queryset %}
                 <tr>
                   <td align="left">{{data.fname}}-{{data.lname}} {{data.2}} {{data.3}}</td>
-                  <td align="left">{{data.created|date:"d M Y"}} {{data.1|date:"d M Y"}}</td>
+                  <td align="left">{{data.dtcreated|date:"d M Y"}} {{data.1|date:"d M Y"}}</td>
                   <td align="center">{{data.total}} {{data.5}}</td>
                   <td align="left">{{data.memo}}</td>
                   <td align="center">
@@ -61,6 +61,12 @@
                         </i>
                         View
                     </a>
+                    {% if not data.flag %}
+                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDel-lg-{{data.id}}" href="">
+                      <i class="fas fa-trash-alt"></i>
+                      Delete
+                    </a>
+                    {% endif %}
                     <!-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-{{data.id}}">
                         <i class="fas fa-trash">
                         </i> Delete
@@ -133,10 +139,10 @@
                           </div>
                           <!-- /.col -->
                           <div class="col-sm-4 invoice-col">
-                            <b>Invoice #{{data.id}}</b><br>
-                            <br>
-                            <b>Order ID:</b> {{data.id}}<br>
-                            <b>Payment Due:</b> {{data.created|date:'d/m/Y'}}<br>
+                            <br><b>Invoice #{{data.orderno}}</b><br>
+                            
+                            <!-- <b>Order ID:</b> {{data.orderno}}<br> -->
+                            <b>Payment Due:</b> {{data.dtcreated|date:'d/m/Y'}}<br>
                             <!-- <b>Account:</b> 968-34567 -->
                           </div>
                           <!-- /.col -->
@@ -221,9 +227,9 @@
       <div class="modal-content">
         <div class="modal-header">
           {% if data.flag != True %}
-          <h4 class="modal-title">ยืนยันการสั่งซื้อ #{{data.id}}</h4>
+          <h4 class="modal-title">ยืนยันการสั่งซื้อ #{{data.orderno}}</h4>
           {% else %}
-          <h4 class="modal-title">ยกเลิกการสั่งซื้อ #{{data.id}}</h4>
+          <h4 class="modal-title">ยกเลิกการสั่งซื้อ #{{data.orderno}}</h4>
           {% endif %}
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -246,6 +252,36 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+  <div class="modal fade" name="modal" id="modalDel-lg-{{data.id}}">
+    <div class="modal-dialog">
+        
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm Delete</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>#{{data.orderno}} - {{data.fname}} {{data.lname}}</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Delete</button> -->
+          <a class="btn btn-danger btn-sm" href="{% url 'DelOrderall' data.id %}">
+            <i class="fas fa-trash">
+            </i>
+            Delete
+        </a>
+        </div>
+      </div>
+        
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->

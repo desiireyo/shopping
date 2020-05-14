@@ -141,7 +141,7 @@
     <tbody>
     {% for data in queryset %}
     <tr>
-      <td>{{data.created|date:"d/m/Y"}}</td>
+      <td>{{data.dtcreated|date:"d/m/Y"}}</td>
       <td align="left">{{data.fname}} {{data.lname}}</td>
       <td>{{data.tel}}</td>
       <td>{{data.total}}</td>

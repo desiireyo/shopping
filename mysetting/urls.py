@@ -62,6 +62,7 @@ urlpatterns = [
 
     path('myorder/myorderall',myOrderall,name="myOrderall"),
     path('myorder/report',rp_myorder,name="rp_myorder"),
+    path('myorder/myorderall/del/<int:order_id>',DelOrderall,name="DelOrderall"),
 
     path('pageset/pagehomeSetting',pagehomeSetting,name="pagehomeSetting"),
     path('pageset/pagehomeSetting/create',createNewband,name="createNewband"),
