@@ -6,7 +6,7 @@ django-crispy-forms==1.9.0
 humanize==2.4.0
 idna==2.9
 mysqlclient==1.4.6
-Pillow==7.1.2
+Pillow==8.3.2
 pytz==2020.1
 requests==2.23.0
 sqlparse==0.3.1
